@@ -1,4 +1,8 @@
+# Git ignore file
+
+# Binaries and tests
 bin
-Makefile.config
+tests
+
+# VS Code files
 .vscode
-build

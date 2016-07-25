@@ -19,18 +19,24 @@ else
   opencv_flags := -I/opt/local/include
 endif
 
-utils = src/WorkImage.cpp src/Utils.cpp
+utils = src//image/Image.cpp src/Utils.cpp
 lgflags = -lglog -lgflags -lpthread
 
 all: $(utils)
 	$(compiler) -o bin/extractRect $(opencv_flags) $(utils) src/Output.cpp src/extractRect.cpp $(opencv_lib) $(lgflags)
 	$(compiler) -o bin/annotateRect $(opencv_flags) $(utils) src/annotateRect.cpp $(lgflags) -lglog $(opencv_lib)
 
+test_image: src/image/Image.cpp
+	$(compiler) -o tests/test_image $(opencv_flags) src/image/Image.cpp src/image/test.cpp $(opencv_lib)
+
 extraction: $(utils) src/Output.cpp
 	$(compiler) -o bin/extractRect $(opencv_flags) $(utils) src/Output.cpp src/extractRect.cpp $(opencv_lib) $(lgflags)
 
 annotation: $(utils)
 	$(compiler) -o bin/annotateRect $(opencv_flags) $(utils) src/annotateRect.cpp $(lgflags) -lglog $(opencv_lib)
+
+clean_tests:
+		rm tests/*
 
 clean:
 		rm bin/*
