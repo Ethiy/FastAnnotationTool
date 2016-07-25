@@ -3,6 +3,8 @@
 #include <fstream>
 #include "WorkImage.h"
 #include <algorithm>
+#include <opencv2/objdetect/objdetect.hpp>
+
 
 using namespace std;
 using std::string;

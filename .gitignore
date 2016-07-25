@@ -1,2 +1,4 @@
 bin
 Makefile.config
+.vscode
+build
