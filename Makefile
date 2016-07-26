@@ -36,7 +36,7 @@ annotation: $(utils)
 	$(compiler) -o bin/annotateRect $(opencv_flags) $(utils) src/annotateRect.cpp $(lgflags) -lglog $(opencv_lib)
 
 clean_tests:
-		rm tests/*
+	rm tests/*
 
 clean:
-		rm bin/*
+	rm bin/*
