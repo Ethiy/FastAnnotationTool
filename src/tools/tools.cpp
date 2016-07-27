@@ -3,26 +3,14 @@
 /*---default_annotations_folder(std::string images_folder):
         specifies: - annotations_folder, annotations' default folder path from images_folder.
 ---*/
-int default_annotations_folder(std::string images_folder, std::string& annotations_folder )
+std::string default_annotations_folder(std::string images_folder)
 {
     const sys::path images_path( images_folder );
     const sys::path temp_path( "Annotations/" );
-    try
-    {
-      sys::is_directory(images_path);
-      sys::path annotations_path = images_path.parent_path();
-      annotations_path /= temp_path;
-      annotations_folder = annotations_path.string();
-    }
-    catch (const sys::filesystem_error& error)
-    {
-      if(error.code() == boost::system::errc::permission_denied)
-        std::cerr << "Permission denied for: " << images_path << std::endl;
-      else
-        std::cerr << "boost::filesystem::is_directory(" << images_path << ") failed:" << error.code().message() << std::endl;
-      return ERROR_IN_PATH;
-    }
-    return EXIT_SUCCESS;
+    sys::is_directory(images_path);
+    sys::path annotations_path = images_path.parent_path();
+    annotations_path /= temp_path;
+    return annotations_path.string();
 }
 
 /*---argument_parser(int argc, const char *argv[], std::string& images_folder, std::string& annotations_folder):
@@ -31,7 +19,6 @@ int default_annotations_folder(std::string images_folder, std::string& annotatio
 ---*/ 
 int argument_parser(int argc, const char *argv[], std::string& images_folder, std::string& annotations_folder)
 {
-    int success(0);
     try
     {
         arg_parser::options_description description("Options");
@@ -56,9 +43,20 @@ int argument_parser(int argc, const char *argv[], std::string& images_folder, st
                 std::cout << std::endl << "    The annotations folder path has been set to:     \"" << vm["annotations"].as<std::string>() << "\"." << std::endl;
             else
             {
-                success = default_annotations_folder(images_folder, annotations_folder);
-                std::cout << std::endl << "    The annotations folder path was not specified." << std::endl << 
-                                          "      - The default value is deduced to be:            \"" << annotations_folder << "\"." << std::endl;
+                try
+                {
+                    annotations_folder = default_annotations_folder(images_folder);
+                    std::cout << std::endl << "    The annotations folder path was not specified." << std::endl << 
+                                            "      - The default value is deduced to be:            \"" << annotations_folder << "\"." << std::endl;
+                }
+                catch (const sys::filesystem_error& error)
+                {
+                    if(error.code() == boost::system::errc::permission_denied)
+                        std::cerr << "Permission denied for: " << images_folder << std::endl;
+                    else
+                        std::cerr << "boost::filesystem::is_directory(" << images_folder << ") failed:" << error.code().message() << std::endl;
+                    return ERROR_IN_PATH;
+                }
             }
         }
         catch (arg_parser::error& error)
@@ -73,6 +71,5 @@ int argument_parser(int argc, const char *argv[], std::string& images_folder, st
         std::cerr << std::endl << std::endl << "Unhandled Exception in the argument parser:" << exception.what() << ", exiting ..." << std::endl;
         return ERROR_UNHANDLED_EXCEPTION;
     }
-    success += EXIT_SUCCESS;
-    return success;
+    return EXIT_SUCCESS;
 }
