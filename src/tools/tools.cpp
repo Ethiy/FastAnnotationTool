@@ -42,6 +42,7 @@ std::string default_annotations_folder(std::string images_folder)
 
 int argument_parser(int argc, const char *argv[], std::string& images_folder, std::string& annotations_folder)
 {
+    std::cout << std::endl << "[INFO:][Parsing arguments]." << std::endl;
     try
     {
         arg_parser::options_description description("Options");
@@ -84,4 +85,26 @@ int argument_parser(int argc, const char *argv[], std::string& images_folder, st
         return ERROR_UNHANDLED_EXCEPTION;
     }
     return EXIT_SUCCESS;
+}
+
+std::vector<sys::path> get_images(std::string images_folder)
+{
+    sys::path images_path(images_folder);
+    std::cout << std::endl << "[INFO:][Getting all PNG images in folder: \"" << images_folder << "\" ]." << std::endl;
+    std::vector<sys::path> images;
+    sys::directory_iterator end_itr;
+    try
+    {
+        for (sys::directory_iterator iterator(images_path); iterator != end_itr; ++iterator)
+        {
+            if( sys::is_regular_file( iterator->path() ) && iterator->path().extension().string() == ".png" )
+                images.push_back( iterator->path() );
+        }
+    }
+    catch (sys::filesystem_error const& error)
+    {
+        std::cerr << "ERROR: boost::filesystem::is_regular_file(" << images_folder << ") failed:" << error.code().message() << std::endl;
+        std::exit(ERROR_IN_PATH);
+    }
+    return images;
 }
