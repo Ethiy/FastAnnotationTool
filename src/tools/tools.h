@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include <exception>
 
 #include <boost/program_options.hpp>
 #include <boost/filesystem.hpp>
@@ -17,7 +18,15 @@ namespace
 namespace arg_parser = boost::program_options;
 namespace sys = boost::filesystem;
 
+/**default_annotations_folder(std::string images_folder):
+*       specifies: - annotations_folder, annotations' default folder path from images_folder.
+**/
 int default_annotations_folder(std::string images_folder, std::string& annotations_folder );
+
+/**argument_parser(int argc, const char *argv[], std::string& images_folder, std::string& annotations_folder):
+*       specifies: - images_folder, images' folder path.
+*                  - annotations_folder, annotations' folder path.
+**/ 
 int argument_parser(int argc, const char *argv[], std::string& images_folder, std::string& annotations_folder);
 
 #endif

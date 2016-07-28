@@ -1,22 +1,15 @@
 #include "tools.h"
 
-/*---default_annotations_folder(std::string images_folder):
-        specifies: - annotations_folder, annotations' default folder path from images_folder.
----*/
 std::string default_annotations_folder(std::string images_folder)
 {
     const sys::path images_path( images_folder );
-    const sys::path temp_path( "Annotations/" );
     sys::is_directory(images_path);
+    const sys::path temp_path( "Annotations" );
     sys::path annotations_path = images_path.parent_path();
     annotations_path /= temp_path;
     return annotations_path.string();
 }
 
-/*---argument_parser(int argc, const char *argv[], std::string& images_folder, std::string& annotations_folder):
-        specifies: - images_folder, images' folder path.
-                   - annotations_folder, annotations' folder path.
----*/ 
 int argument_parser(int argc, const char *argv[], std::string& images_folder, std::string& annotations_folder)
 {
     try
@@ -49,7 +42,7 @@ int argument_parser(int argc, const char *argv[], std::string& images_folder, st
                     std::cout << std::endl << "    The annotations folder path was not specified." << std::endl << 
                                             "      - The default value is deduced to be:            \"" << annotations_folder << "\"." << std::endl;
                 }
-                catch (const sys::filesystem_error& error)
+                catch (sys::filesystem_error const& error)
                 {
                     if(error.code() == boost::system::errc::permission_denied)
                         std::cerr << "Permission denied for: " << images_folder << std::endl;
@@ -59,14 +52,14 @@ int argument_parser(int argc, const char *argv[], std::string& images_folder, st
                 }
             }
         }
-        catch (arg_parser::error& error)
+        catch (arg_parser::error const& error)
         {
             std::cerr << std::endl << "ERROR: " << error.what() << std::endl << std::endl;
             std::cerr << description << std::endl;
             return ERROR_IN_COMMAND_LINE;
         }
     }
-    catch (const std::exception& exception)
+    catch (std::exception const& exception)
     {
         std::cerr << std::endl << std::endl << "Unhandled Exception in the argument parser:" << exception.what() << ", exiting ..." << std::endl;
         return ERROR_UNHANDLED_EXCEPTION;
