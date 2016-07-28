@@ -1,13 +1,43 @@
 #include "tools.h"
 
+void check_path(const sys::path images_path)
+{
+    if(!sys::is_directory(images_path))
+    {
+        std::cout << std::endl << "ERROR: " << images_path.string() << " is not a valid directory." << std::endl;
+        std::exit(ERROR_IN_PATH);
+    }
+}
+
 std::string default_annotations_folder(std::string images_folder)
 {
     const sys::path images_path( images_folder );
-    sys::is_directory(images_path);
     const sys::path temp_path( "Annotations" );
-    sys::path annotations_path = images_path.parent_path();
-    annotations_path /= temp_path;
-    return annotations_path.string();
+    try
+    {
+        check_path(images_path);
+        sys::path annotations_path = images_path.parent_path();
+        annotations_path /= temp_path;
+        if(!sys::is_directory(annotations_path))
+        {
+            bool created_path = sys::create_directory(annotations_path);
+            if(!created_path)
+                std::exit(ERROR_IN_PATH);
+            else
+            {
+                std::cout << std::endl << "      [INFO:][Successfully created directory: \"" << annotations_path.string() << " \".]" << std::endl;
+            }
+        }
+        return annotations_path.string();
+    }
+    catch (sys::filesystem_error const& error)
+    {
+        if(error.code() == boost::system::errc::permission_denied)
+            std::cerr << "ERROR: Permission denied for: " << images_folder << std::endl;
+        else
+            std::cerr << "ERROR: boost::filesystem::is_directory(" << images_folder << ") failed:" << error.code().message() << std::endl;
+        std::exit(ERROR_IN_PATH);
+    }
 }
 
 int argument_parser(int argc, const char *argv[], std::string& images_folder, std::string& annotations_folder)
@@ -36,20 +66,9 @@ int argument_parser(int argc, const char *argv[], std::string& images_folder, st
                 std::cout << std::endl << "    The annotations folder path has been set to:     \"" << vm["annotations"].as<std::string>() << "\"." << std::endl;
             else
             {
-                try
-                {
-                    annotations_folder = default_annotations_folder(images_folder);
-                    std::cout << std::endl << "    The annotations folder path was not specified." << std::endl << 
-                                            "      - The default value is deduced to be:            \"" << annotations_folder << "\"." << std::endl;
-                }
-                catch (sys::filesystem_error const& error)
-                {
-                    if(error.code() == boost::system::errc::permission_denied)
-                        std::cerr << "Permission denied for: " << images_folder << std::endl;
-                    else
-                        std::cerr << "boost::filesystem::is_directory(" << images_folder << ") failed:" << error.code().message() << std::endl;
-                    return ERROR_IN_PATH;
-                }
+                annotations_folder = default_annotations_folder(images_folder);
+                std::cout << "    The annotations folder path was not specified." << std::endl << 
+                                        "      - The default value is deduced to be:            \"" << annotations_folder << "\"." << std::endl;
             }
         }
         catch (arg_parser::error const& error)

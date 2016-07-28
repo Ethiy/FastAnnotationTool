@@ -10,8 +10,8 @@
 int main(int argc, const char *argv[])
 {
     std::string images_folder, annotations_folder;
-    int success(0);
-    success = argument_parser(argc, argv, images_folder, annotations_folder);
+    int EXIT_CODE(EXIT_SUCCESS);
+    EXIT_CODE = argument_parser(argc, argv, images_folder, annotations_folder);
 
-    return success;
+    return EXIT_CODE;
 }
