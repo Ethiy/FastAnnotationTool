@@ -1,4 +1,5 @@
 #include "tools/tools.h"
+#include "annotations/annotations.h"
 
 #include <cstdlib>
 #include <algorithm>
@@ -6,9 +7,6 @@
 #include <iostream>
 
 #include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
-
 
 int main(int argc, const char *argv[])
 {
@@ -19,7 +17,13 @@ int main(int argc, const char *argv[])
         std::exit(EXIT_CODE);
     
     std::vector<sys::path> images = get_images(images_folder);
-    std::vector<std::string> s;
+    /*std::string s;
+    s = std::accumulate( images.begin(), images.end(), std::string{}, 
+                                                                [](const std::string& a, sys::path b) {
+                                                                    return a.empty() ? b.string()
+                                                                        : a + '\n' + b.string();}
+                                                                );
+    std::cout << std::endl << s << std::endl;*/
 
     return EXIT_SUCCESS;
 }
