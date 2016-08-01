@@ -17,13 +17,14 @@ int main(int argc, const char *argv[])
         std::exit(EXIT_CODE);
     
     std::vector<sys::path> images = get_images(images_folder);
-    /*std::string s;
-    s = std::accumulate( images.begin(), images.end(), std::string{}, 
-                                                                [](const std::string& a, sys::path b) {
-                                                                    return a.empty() ? b.string()
-                                                                        : a + '\n' + b.string();}
-                                                                );
-    std::cout << std::endl << s << std::endl;*/
+    
+    std::vector< std::vector< std::pair< std::string, std::map<std::string, int>>> > image_annotations;
+    std::transform( images.begin(), images.end(), image_annotations.begin(),[] (sys::path path)
+                                                                            {
+                                                                                Image current_image;
+                                                                                return get_annotations( current_image.get_image());
+                                                                            }
+                                                                            );
 
     return EXIT_SUCCESS;
 }
