@@ -64,6 +64,7 @@ Image::Image(sys::path image_path)
     {
         std::cerr <<  "[ERROR]:[Could not load image from:" << image_path << "]." << std::endl ;
         loaded = false;
+        std::exit(EXIT_FAILURE)
     } 
     else
     {
@@ -82,6 +83,24 @@ void Image::redimension(void)
     height = image.rows;
     width = image.cols;
     area = height * width;
+}
+
+void Image::save_to(sys::path image_path)
+{
+    assert( is_loaded() );
+    try{
+        const int PNG_COMPRESSION_PARAMETER = 9;
+        std::vector<int> compression_params;
+        compression_params.push_back(cv::CV_IMWRITE_PNG_COMPRESSION);
+        compression_params.push_back(PNG_COMPRESSION_PARAMETER);
+        cv::imwrite(image_path.string(), image, compression_params);
+	  }
+    catch (std::runtime_error& exeption) 
+    {
+        std::cerr << "[ERROR]:[Exception converting image to PNG format: " << exeption.what() << "]." << std::endl;
+        std::exit(EXIT_FAILURE);
+    }
+    std::cout << "[INFO]:[Image Saved.]" << std::endl;
 }
 
 std::vector< Annotation> Image::annotate(void)

@@ -10,6 +10,7 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
+
 /*---Dimensions---*/
 extern const double min_dim; /* Minimum dimension of the full image */
 extern const double max_dim; /* Maximum dimension of the to-be-shown image */
@@ -93,23 +94,6 @@ inline int Image::get_channels(void)
 {
 	  assert( is_loaded(void) );
 	  return(channels);
-}
-
-inline void Image::save_to(std::path image_path)
-{
-    assert( is_loaded() );
-    const int PNG_COMPRESSION_PARAMETER = 9;
-    try{
-        std::vector<int> compression_params;
-        compression_params.push_back(CV_IMWRITE_PNG_COMPRESSION);
-        compression_params.push_back(PNG_COMPRESSION_PARAMETER);
-        cv::imwrite(, image, compression_params);
-	  }
-    catch (std::runtime_error& exeption) 
-    {
-        std::cerr << "[ERROR]:[Exception converting image to PNG format: " << exeption.what() << "]." << std::endl;
-    }
-    std::cout << "[INFO]:[Image Saved.]" << std::endl;
 }
 
 #endif
