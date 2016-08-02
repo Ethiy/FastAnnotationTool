@@ -63,9 +63,16 @@ void Image::save_to(sys::path image_path)
     std::cout << "[INFO]:[Image Saved.]" << std::endl;
 }
 
-static void Image::mouse_click(int event, int x, int y, int , void* parameters)
+void Image::mouse_click(int event, int x, int y, int flags, void* that)
+{
+    Image* that = static_cast<Image*>(that);
+    that->_mouse_click(int event, int x, int y, int flags);
+}
+
+void Image::_mouse_click(int event, int x, int y, int flags)
 {
     bool getting_roi = false;
+    cv::Mat current_view = image;
     switch(event)
     {
         case EVENT_LBUTTONDOWN:
@@ -89,7 +96,7 @@ static void Image::mouse_click(int event, int x, int y, int , void* parameters)
             if(getting_roi)
             {
                 cv::rectangle(current_view, first_corner, cv::Point(x,y), RED);
-                cv::imshow(annotations_window_name, current_view);
+                cv::imshow(annotations_window, current_view);
             }
             break;
         }
@@ -101,13 +108,12 @@ static void Image::mouse_click(int event, int x, int y, int , void* parameters)
 std::vector<Annotation> Image::annotate(void)
 {
     std::vector< Annotation> RoIs;
-    bool stop = false;
 
     cv::namedWindow(annotations_window, WINDOW_AUTOSIZE);
-    cv::setMouseCallback(annotations_window, mouse_click);
+    cv::setMouseCallback(annotations_window, Image::mouse_click, this);
 
-    capture_image = input_image;
-    cv::imshow(annotation_window_name);
+    cv::Mat current_view = image;
+    cv::imshow(annotation_window, current_view);
 
     int key = 0;
 
@@ -119,19 +125,17 @@ std::vector<Annotation> Image::annotate(void)
         {
             case ESC:
             {
-                cv::destroyWindow(annotation_window_name);
-                stop = true;
+                cv::destroyWindow(annotation_window);
                 break;
             }
             case Confirm:
             {
-                std::map<std::string, int> rectangle = get_conventional_corners(first_corner, second_corner);
                 cv::rectangle(current_view, first_corner, second_corner, YELLOW);
                 std::cout << "Enter class: ";
                 std::string object_class;
                 std::cin >> object_class;
                 std::cout << std::endl;
-                RoIs.push_back( std::make_pair(object_class, rectangle) );
+                RoIs.push_back( Annotation(object_class, first_corner, second_corner) );
                 cv::rectangle(current_view, first_corner, second_corner, GREEN);
                 break;
             }
@@ -147,8 +151,7 @@ std::vector<Annotation> Image::annotate(void)
                 break;
         }
 
-        if(stop)
-            break;
-                    
     } while(key != Next );
+    cv::destroyWindow(annotation_window);
+    return RoIs;
 }

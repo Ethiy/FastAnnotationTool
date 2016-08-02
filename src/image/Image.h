@@ -31,12 +31,6 @@ extern const int Next;
 extern const int Delete;
 extern const int ESC;
 
-typedef union
-{
-    cv::Point corner;
-    cv::Mat image;
-} Parameter;
-
 class Image
 {
 public:
@@ -54,7 +48,6 @@ public:
 
     void save_to(sys::path);
 
-    static void mouse_click(int, int, int, int , void*);
     std::vector<Annotation> annotate(void);
 
 private:
@@ -68,6 +61,10 @@ private:
     long area;
     int channels;
     
+    cv::Point first_corner, second_corner;
+    static void mouse_click(int, int, int, int , void*);
+    void _mouse_click(int, int, int, int);
+
 };
 
 inline bool Image::is_loaded(void)
