@@ -2,9 +2,14 @@
 
 void check_path(const sys::path images_path)
 {
-    if(!sys::is_directory(images_path))
+    try
     {
-        std::cout << std::endl << "ERROR: " << images_path.string() << " is not a valid directory." << std::endl;
+        if(!sys::is_directory(images_path))
+            throw images_path;
+    }
+    catch (sys::path& images_path)
+    {
+        std::cerr << std::endl << "[ERROR]:[" << images_path.string() << " is not a valid directory]." << std::endl;
         std::exit(ERROR_IN_PATH);
     }
 }
@@ -33,14 +38,14 @@ std::string default_annotations_folder(std::string images_folder)
     catch (sys::filesystem_error const& error)
     {
         if(error.code() == boost::system::errc::permission_denied)
-            std::cerr << "ERROR: Permission denied for: " << images_folder << std::endl;
+            std::cerr << "[ERROR]:[Permission denied for: " << images_folder << "]." << std::endl;
         else
-            std::cerr << "ERROR: boost::filesystem::is_directory(" << images_folder << ") failed:" << error.code().message() << std::endl;
+            std::cerr << "[ERROR]:[boost::filesystem::is_directory(" << images_folder << ") failed:" << error.code().message() << "]." << std::endl;
         std::exit(ERROR_IN_PATH);
     }
 }
 
-int argument_parser(int argc, const char *argv[], std::string& images_folder, std::string& annotations_folder)
+void argument_parser(int argc, const char *argv[], std::string& images_folder, std::string& annotations_folder)
 {
     std::cout << std::endl << "[INFO:][Parsing arguments]." << std::endl;
     try
@@ -74,17 +79,16 @@ int argument_parser(int argc, const char *argv[], std::string& images_folder, st
         }
         catch (arg_parser::error const& error)
         {
-            std::cerr << std::endl << "ERROR: " << error.what() << std::endl << std::endl;
+            std::cerr << std::endl << "[ERROR]:[" << error.what() << "]." << std::endl << std::endl;
             std::cerr << description << std::endl;
-            return ERROR_IN_COMMAND_LINE;
+            std::exit(ERROR_IN_COMMAND_LINE);
         }
     }
     catch (std::exception const& exception)
     {
-        std::cerr << std::endl << std::endl << "Unhandled Exception in the argument parser:" << exception.what() << ", exiting ..." << std::endl;
-        return ERROR_UNHANDLED_EXCEPTION;
+        std::cerr << std::endl << std::endl << "[ERROR]:[Unhandled Exception in the argument parser: " << exception.what() << "]." << std::endl;
+        std::exit(ERROR_UNHANDLED_EXCEPTION);
     }
-    return EXIT_SUCCESS;
 }
 
 std::vector<sys::path> get_images(std::string images_folder)
@@ -103,7 +107,7 @@ std::vector<sys::path> get_images(std::string images_folder)
     }
     catch (sys::filesystem_error const& error)
     {
-        std::cerr << "ERROR: boost::filesystem::is_regular_file(" << images_folder << ") failed:" << error.code().message() << std::endl;
+        std::cerr << "[ERROR]:[boost::filesystem::is_regular_file(" << images_folder << ") failed:" << error.code().message() << "]." << std::endl;
         std::exit(ERROR_IN_PATH);
     }
     return images;

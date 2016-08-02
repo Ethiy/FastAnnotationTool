@@ -18,19 +18,12 @@ namespace
 namespace arg_parser = boost::program_options;
 namespace sys = boost::filesystem;
 
-void check_path(const sys::path images_path);
+void check_path(const sys::path);
 
-/**default_annotations_folder(std::string images_folder):
-*       specifies: - annotations_folder, annotations' default folder path from images_folder.
-**/
-std::string default_annotations_folder(std::string images_folder);
+std::string default_annotations_folder(std::string);
 
-/**argument_parser(int argc, const char *argv[], std::string& images_folder, std::string& annotations_folder):
-*       specifies: - images_folder, images' folder path.
-*                  - annotations_folder, annotations' folder path.
-**/ 
-int argument_parser(int argc, const char *argv[], std::string& images_folder, std::string& annotations_folder);
+void argument_parser(int, const char *, std::string&, std::string&);
 
-std::vector<sys::path> get_images(std::string images_folder);
+std::vector<sys::path> get_images(std::string);
 
 #endif
