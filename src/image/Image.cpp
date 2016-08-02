@@ -16,46 +16,6 @@ const int Next = 110;
 const int Delete = 100;
 const int ESC = 27;
 
-cv::Point first_corner;
-cv::Point second_corner;
-cv::Mat capture_image;
-
-
-void mouse_click(int event, int x, int y, int , void* params)
-{
-    bool getting_roi = false;
-    switch(event)
-    {
-        case EVENT_LBUTTONDOWN:
-        {
-            if(getting_roi)
-            {
-                first_corner.x = x;
-                first_corner.y = y;
-                getting_roi = true;
-            }
-            else
-            {
-                second_corner.x = x;
-                second_corner.y = y;
-                getting_roi = false;
-            }
-            break;
-        }
-        case EVENT_MOUSEMOVE:
-        {
-            if(getting_roi)
-            {
-                cv::Mat current_view = capture_image.clone();
-                cv::rectangle(current_view, first_corner, cv::Point(x,y), RED);
-                cv::imshow(annotations_window_name, current_view);
-            }
-            break;
-        }
-        default:
-            break;
-    }
-}
 
 Image::Image(sys::path image_path)
 {
@@ -103,7 +63,42 @@ void Image::save_to(sys::path image_path)
     std::cout << "[INFO]:[Image Saved.]" << std::endl;
 }
 
-std::vector< Annotation> Image::annotate(void)
+static void Image::mouse_click(int event, int x, int y, int , void* parameters)
+{
+    bool getting_roi = false;
+    switch(event)
+    {
+        case EVENT_LBUTTONDOWN:
+        {
+            if(getting_roi)
+            {
+                first_corner.x = x;
+                first_corner.y = y;
+                getting_roi = true;
+            }
+            else
+            {
+                second_corner.x = x;
+                second_corner.y = y;
+                getting_roi = false;
+            }
+            break;
+        }
+        case EVENT_MOUSEMOVE:
+        {
+            if(getting_roi)
+            {
+                cv::rectangle(current_view, first_corner, cv::Point(x,y), RED);
+                cv::imshow(annotations_window_name, current_view);
+            }
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+std::vector<Annotation> Image::annotate(void)
 {
     std::vector< Annotation> RoIs;
     bool stop = false;

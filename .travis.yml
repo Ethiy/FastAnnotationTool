@@ -1,0 +1,11 @@
+language: cpp
+branches:
+  only:
+  - master
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+      sudo: required
+    - os: osx
+    

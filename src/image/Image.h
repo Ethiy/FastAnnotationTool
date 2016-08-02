@@ -31,9 +31,11 @@ extern const int Next;
 extern const int Delete;
 extern const int ESC;
 
-/*---Mouse click function---*/
-void mouse_click(int, int, int, int, void*);
-
+typedef union
+{
+    cv::Point corner;
+    cv::Mat image;
+} Parameter;
 
 class Image
 {
@@ -52,6 +54,7 @@ public:
 
     void save_to(sys::path);
 
+    static void mouse_click(int, int, int, int , void*);
     std::vector<Annotation> annotate(void);
 
 private:
