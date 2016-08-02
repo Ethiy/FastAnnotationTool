@@ -119,6 +119,7 @@ std::vector<Annotation> Image::annotate(void)
     cv::imshow(annotation_window, current_view);
 
     int key = 0;
+    bool escape = false;
 
     do
     {
@@ -129,6 +130,7 @@ std::vector<Annotation> Image::annotate(void)
             case ESC:
             {
                 cv::destroyWindow(annotation_window);
+                escape = true;
                 break;
             }
             case Confirm:
@@ -153,6 +155,9 @@ std::vector<Annotation> Image::annotate(void)
             default:
                 break;
         }
+
+        if(escape)
+            break;
 
     } while(key != Next );
     cv::destroyWindow(annotation_window);
