@@ -1,22 +1,14 @@
-#include "annotation.h"
+#include "Annotation.h"
 
 
-Annotation::Annotation()
+Annotation::Annotation(void): set(true), object_class(object_class), x1(0), x2(0), y1(0), y2(0)
 {
-    set = false;
-    object_class = "";
-    x1 = 0;
-    x2 = 0;
-    y1 = 0;
-    y2 = 0;
     height = y2 - y1;
     width = x2 - x1;
 }
 
-Annotation::Annotation(std::string object_class, cv::Point first_corner, cv::Point second_corner)
+Annotation::Annotation(std::string object_class, cv::Point first_corner, cv::Point second_corner): set(true), object_class(object_class)
 {
-    set = true;
-    object_class = object_class;
     x1 = std::min(first_corner.x, second_corner.x);
     y1 = std::min(first_corner.y, second_corner.y);
     x2 = std::max(first_corner.x, second_corner.x);
@@ -25,17 +17,17 @@ Annotation::Annotation(std::string object_class, cv::Point first_corner, cv::Poi
     width = x2 - x1;
 }
 
-Annotation::~Annotation()
+Annotation::~Annotation(void)
 {
 }
 
-int Annotation::get_width()
+int Annotation::get_width(void)
 {
     assert(is_set());
     return width;
 }
 
-int Annotation::get_height()
+int Annotation::get_height(void)
 {
     assert(is_set());
     return height;

@@ -9,16 +9,16 @@
 class Annotation
 {
 public:
-    Annotation();
+    Annotation(void);
     Annotation(std::string, cv::Point, cv::Point);
-    ~Annotation();
+    ~Annotation(void);
 
-    bool is_set();
-    std::string get_object_class();
-    cv::Point get_first_corner();
-    cv::Point get_second_corner();
-    int get_width();
-    int get_height();
+    bool is_set(void);
+    std::string get_object_class(void);
+    cv::Point get_first_corner(void);
+    cv::Point get_second_corner(void);
+    int get_width(void);
+    int get_height(void);
 
 private:
     bool set;
@@ -31,24 +31,24 @@ private:
     int width;
 };
 
-inline bool Annotation::is_set()
+inline bool Annotation::is_set(void)
 {
     return set;
 }
 
-inline cv::Point Annotation::get_first_corner()
+inline cv::Point Annotation::get_first_corner(void)
 {
     assert(is_set());
     return cv::Point(x1, y1);
 }
 
-inline cv::Point Annotation::get_second_corner()
+inline cv::Point Annotation::get_second_corner(void)
 {
     assert(is_set());
     return cv::Point(x2, y2);
 }
 
-inline std::string Annotation::get_object_class()
+inline std::string Annotation::get_object_class(void)
 {
     assert(is_set());
     return object_class;
