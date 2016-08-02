@@ -3,6 +3,7 @@
 
 #include <string>
 #include <algorithm>
+#include <cassert>
 
 #include <opencv2/core/core.hpp>
 

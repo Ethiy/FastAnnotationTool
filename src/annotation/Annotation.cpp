@@ -17,9 +17,7 @@ Annotation::Annotation(std::string object_class, cv::Point first_corner, cv::Poi
     width = x2 - x1;
 }
 
-Annotation::~Annotation(void)
-{
-}
+Annotation::~Annotation(void){}
 
 int Annotation::get_width(void)
 {
