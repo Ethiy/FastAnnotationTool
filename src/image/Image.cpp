@@ -3,67 +3,138 @@
 const double min_dim = 224; 
 const double max_dim = 500;
 
-Image::Image (std::string image_path)
+const cv::Scalar RED = Scalar(0,0,255);
+const cv::Scalar BLUE = Scalar(255,0,0);
+const cv::Scalar GREEN = Scalar(0,255,0);
+const cv::Scalar YELLOW = Scalar(0, 255, 255);
+
+const std::string annotation_window = "Fast Image Annotation Tool";
+const std::string console_window = "Console";
+
+const int Confirm = 99;
+const int Next = 110;
+const int Delete = 100;
+const int ESC = 27;
+
+cv::Point first_corner;
+cv::Point second_corner;
+cv::Mat capture_image;
+
+
+void mouse_click(int event, int x, int y, int , void* params)
 {
-    this->full_image = imread(image_path, CV_LOAD_IMAGE_COLOR);
-    if(! full_image.data )
+    bool getting_roi = false;
+    switch(event)
     {
-        std::cerr <<  "Could not open or find:" << image_path << std::endl ;
-        this->loaded = false;
-        std::abort();
-    } 
-    else
-    {
-      this->loaded = true;
-      this->height = this->full_image.rows;
-      this->width = this->full_image.cols;
-      this->channels = this->full_image.channels();
-      auto ratio = static_cast< double >( std::max( this->height , this->width ) ) / max_dim;
-      if( ratio > 1.5)
-      {
-        ratio = 1. / ratio;
-        resize( this->full_image , this->image , Size() , ratio ,ratio , INTER_AREA );
-        this->height = this->image.rows;
-        this->width = this->image.cols;
-      }
-      else
-      {
-        this->image = this->full_image.clone();
-      }
-      this->area = this->height * this->width;
+        case EVENT_LBUTTONDOWN:
+        {
+            if(getting_roi)
+            {
+                first_corner.x = x;
+                first_corner.y = y;
+                getting_roi = true;
+            }
+            else
+            {
+                second_corner.x = x;
+                second_corner.y = y;
+                getting_roi = false;
+            }
+            break;
+        }
+        case EVENT_MOUSEMOVE:
+        {
+            if(getting_roi)
+            {
+                cv::Mat current_view = capture_image.clone();
+                cv::rectangle(current_view, first_corner, cv::Point(x,y), RED);
+                cv::imshow(annotations_window_name, current_view);
+            }
+            break;
+        }
+        default:
+            break;
     }
 }
 
-void Image::redimension()
+Image::Image(sys::path image_path)
 {
-  auto ratio = static_cast<double>( this->height ) / min_dim;
-  ratio = 1. / ratio;
-  resize( this->full_image , this->full_image , Size() , ratio ,ratio , INTER_AREA );
-  this->height = this->full_image.rows;
-  this->width = this->full_image.cols;
-  this->area = this->height * this->width;
+    image = cv::imread(image_path.string(), cv::CV_LOAD_IMAGE_COLOR);
+    if(!image.data )
+    {
+        std::cerr <<  "[ERROR]:[Could not load image from:" << image_path << "]." << std::endl ;
+        loaded = false;
+    } 
+    else
+    {
+      loaded = true;
+      height = image.rows;
+      width = image.cols;
+      channels = image.channels();
+      area = height * width;
+    }
 }
 
-
-void Image::process()
+void Image::redimension(void)
 {
-  assert(this->get_area()>0);
-  assert(this->get_channels()>0);
-  const int depth(2^8-1);
-  cvtColor( this->full_image , this->gray_image , CV_BGR2GRAY );
-  adaptiveThreshold( this->gray_image , this->threshold_image , depth , ADAPTIVE_THRESH_MEAN_C , THRESH_BINARY , 11 , 12 );
+    auto ratio = min_dim/static_cast<double>( height );
+    cv::resize( image , image , Size() , ratio ,ratio , cv::INTER_AREA );
+    height = image.rows;
+    width = image.cols;
+    area = height * width;
 }
 
-void Image::release()
+std::vector< Annotation> Image::annotate(void)
 {
-  this->image.release();
-  this->gray_image.release();
-  this->threshold_image.release();
-  this->full_image.release();
+    std::vector< Annotation> RoIs;
+    bool stop = false;
 
-  this->height = 0;
-  this->width = 0;
-  this->area = 0;
-  this->channels = 0;
-  this->loaded = false;
+    cv::namedWindow(annotations_window, WINDOW_AUTOSIZE);
+    cv::setMouseCallback(annotations_window, mouse_click);
+
+    capture_image = input_image;
+    cv::imshow(annotation_window_name);
+
+    int key = 0;
+
+    do
+    {
+        key = 0xFF & waitKey(0);
+
+        switch (key)
+        {
+            case ESC:
+            {
+                cv::destroyWindow(annotation_window_name);
+                stop = true;
+                break;
+            }
+            case Confirm:
+            {
+                std::map<std::string, int> rectangle = get_conventional_corners(first_corner, second_corner);
+                cv::rectangle(current_view, first_corner, second_corner, YELLOW);
+                std::cout << "Enter class: ";
+                std::string object_class;
+                std::cin >> object_class;
+                std::cout << std::endl;
+                RoIs.push_back( std::make_pair(object_class, rectangle) );
+                cv::rectangle(current_view, first_corner, second_corner, GREEN);
+                break;
+            }
+            case Delete:
+            {
+                if(!RoIs.empty())
+                    RoIs.pop_back();
+                else
+                    std::cout << "[INFO]:[There is no annotation to delete!]" << std::endl;
+                break;
+            }
+            default:
+                break;
+        }
+
+        if(stop)
+            break;
+                    
+    } while(key != Next );
 }

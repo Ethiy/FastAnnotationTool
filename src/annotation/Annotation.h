@@ -23,7 +23,9 @@ public:
 
 private:
     bool set;
+
     std::string object_class;
+    
     int x1;
     int y1;
     int x2;
