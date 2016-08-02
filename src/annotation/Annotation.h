@@ -4,6 +4,7 @@
 #include <string>
 #include <algorithm>
 #include <cassert>
+#include <iostream>
 
 #include <opencv2/core/core.hpp>
 
@@ -32,6 +33,8 @@ private:
     int y2;
     int height;
     int width;
+
+    friend std::ostream& operator<<(std::ostream&, const Annotation&);
 };
 
 inline bool Annotation::is_set(void)

@@ -30,3 +30,7 @@ int Annotation::get_height(void)
     assert(is_set());
     return height;
 }
+
+std::ostream& operator<<(std::ostream &strm, const Annotation &a) {
+  return strm << a.object_class << " " << a.x1 << " " << a.x2 << " " << a.y1 << " " << a.y2 << std::endl;
+}
