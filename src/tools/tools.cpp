@@ -112,3 +112,11 @@ std::vector<sys::path> get_images(std::string images_folder)
     }
     return images;
 }
+
+sys::path set_annotation_path(std::string annotations_folder, sys::path image_path)
+{
+    sys::path file = image_path.filename();
+    sys::path annotation_path(annotations_folder);
+    annotation_path /= file;
+    return annotation_path.replace_extension("txt");
+}
