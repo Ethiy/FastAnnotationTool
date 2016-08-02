@@ -16,6 +16,9 @@ const int Next = 110;
 const int Delete = 100;
 const int ESC = 27;
 
+cv::Point first_corner(0,0), second_corner(0,0);
+bool getting_roi = false;
+
 
 Image::Image(sys::path image_path)
 {
@@ -71,13 +74,12 @@ void Image::mouse_click(int event, int x, int y, int flags, void* params)
 
 void Image::_mouse_click(int event, int x, int y, int flags)
 {
-    bool getting_roi = false;
-    cv::Mat current_view = image;
+    cv::Mat current_view;
     switch(event)
     {
         case cv::EVENT_LBUTTONDOWN:
         {
-            if(getting_roi)
+            if(!getting_roi)
             {
                 first_corner.x = x;
                 first_corner.y = y;
@@ -95,6 +97,7 @@ void Image::_mouse_click(int event, int x, int y, int flags)
         {
             if(getting_roi)
             {
+                current_view = image.clone();
                 cv::rectangle(current_view, first_corner, cv::Point(x,y), RED);
                 cv::imshow(annotation_window, current_view);
             }

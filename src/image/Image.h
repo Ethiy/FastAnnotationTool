@@ -62,7 +62,6 @@ private:
     long area;
     int channels;
     
-    cv::Point first_corner, second_corner;
     static void mouse_click(int, int, int, int , void*);
     void _mouse_click(int, int, int, int);
 

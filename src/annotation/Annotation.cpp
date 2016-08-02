@@ -32,5 +32,5 @@ int Annotation::get_height(void)
 }
 
 std::ostream& operator<<(std::ostream &strm, const Annotation &a) {
-  return strm << a.object_class << " " << a.x1 << " " << a.x2 << " " << a.y1 << " " << a.y2 << std::endl;
+  return strm << a.object_class << " " << a.x1 << " " << a.x2 << " " << a.y1 << " " << a.y2;
 }
