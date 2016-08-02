@@ -1,7 +1,7 @@
 #include "Annotation.h"
 
 
-Annotation::Annotation(void): set(true), object_class(object_class), x1(0), x2(0), y1(0), y2(0)
+Annotation::Annotation(void): set(true), object_class(""), x1(0), y1(0), x2(0), y2(0)
 {
     height = y2 - y1;
     width = x2 - x1;

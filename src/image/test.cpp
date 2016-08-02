@@ -27,10 +27,6 @@ int main()
   assert( test_image.get_area() == test_image.get_height() * test_image.get_width() );
   std::cout << " = " << test_image.get_height() << " x " << test_image.get_width() << std::endl;
 
-  test_image.process();
-
-  test_image.release();
-
   std::cout << "End of tests no problem detected!" << std::endl;
 
   return 0;

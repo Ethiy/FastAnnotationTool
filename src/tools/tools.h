@@ -22,7 +22,7 @@ void check_path(const sys::path);
 
 std::string default_annotations_folder(std::string);
 
-void argument_parser(int, const char *, std::string&, std::string&);
+void argument_parser(int argc, const char *argv[], std::string& images_folder, std::string& annotations_folder);
 
 std::vector<sys::path> get_images(std::string);
 

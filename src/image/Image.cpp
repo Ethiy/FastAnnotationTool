@@ -3,10 +3,10 @@
 const double min_dim = 224; 
 const double max_dim = 500;
 
-const cv::Scalar RED = Scalar(0,0,255);
-const cv::Scalar BLUE = Scalar(255,0,0);
-const cv::Scalar GREEN = Scalar(0,255,0);
-const cv::Scalar YELLOW = Scalar(0, 255, 255);
+const cv::Scalar RED = cv::Scalar(0,0,255);
+const cv::Scalar BLUE = cv::Scalar(255,0,0);
+const cv::Scalar GREEN = cv::Scalar(0,255,0);
+const cv::Scalar YELLOW = cv::Scalar(0, 255, 255);
 
 const std::string annotation_window = "Fast Image Annotation Tool";
 const std::string console_window = "Console";
@@ -19,12 +19,12 @@ const int ESC = 27;
 
 Image::Image(sys::path image_path)
 {
-    image = cv::imread(image_path.string(), cv::CV_LOAD_IMAGE_COLOR);
+    image = cv::imread(image_path.string(), CV_LOAD_IMAGE_COLOR);
     if(!image.data )
     {
         std::cerr <<  "[ERROR]:[Could not load image from:" << image_path << "]." << std::endl ;
         loaded = false;
-        std::exit(EXIT_FAILURE)
+        std::exit(EXIT_FAILURE);
     } 
     else
     {
@@ -39,7 +39,7 @@ Image::Image(sys::path image_path)
 void Image::redimension(void)
 {
     auto ratio = min_dim/static_cast<double>( height );
-    cv::resize( image , image , Size() , ratio ,ratio , cv::INTER_AREA );
+    cv::resize( image , image , cv::Size() , ratio ,ratio , cv::INTER_AREA );
     height = image.rows;
     width = image.cols;
     area = height * width;
@@ -51,7 +51,7 @@ void Image::save_to(sys::path image_path)
     try{
         const int PNG_COMPRESSION_PARAMETER = 9;
         std::vector<int> compression_params;
-        compression_params.push_back(cv::CV_IMWRITE_PNG_COMPRESSION);
+        compression_params.push_back(CV_IMWRITE_PNG_COMPRESSION);
         compression_params.push_back(PNG_COMPRESSION_PARAMETER);
         cv::imwrite(image_path.string(), image, compression_params);
 	  }
@@ -63,10 +63,10 @@ void Image::save_to(sys::path image_path)
     std::cout << "[INFO]:[Image Saved.]" << std::endl;
 }
 
-void Image::mouse_click(int event, int x, int y, int flags, void* that)
+void Image::mouse_click(int event, int x, int y, int flags, void* params)
 {
-    Image* that = static_cast<Image*>(that);
-    that->_mouse_click(int event, int x, int y, int flags);
+    Image* that = static_cast<Image*>(params);
+    that->_mouse_click(event, x, y, flags);
 }
 
 void Image::_mouse_click(int event, int x, int y, int flags)
@@ -75,7 +75,7 @@ void Image::_mouse_click(int event, int x, int y, int flags)
     cv::Mat current_view = image;
     switch(event)
     {
-        case EVENT_LBUTTONDOWN:
+        case cv::EVENT_LBUTTONDOWN:
         {
             if(getting_roi)
             {
@@ -91,12 +91,12 @@ void Image::_mouse_click(int event, int x, int y, int flags)
             }
             break;
         }
-        case EVENT_MOUSEMOVE:
+        case cv::EVENT_MOUSEMOVE:
         {
             if(getting_roi)
             {
                 cv::rectangle(current_view, first_corner, cv::Point(x,y), RED);
-                cv::imshow(annotations_window, current_view);
+                cv::imshow(annotation_window, current_view);
             }
             break;
         }
@@ -109,8 +109,8 @@ std::vector<Annotation> Image::annotate(void)
 {
     std::vector< Annotation> RoIs;
 
-    cv::namedWindow(annotations_window, WINDOW_AUTOSIZE);
-    cv::setMouseCallback(annotations_window, Image::mouse_click, this);
+    cv::namedWindow(annotation_window, cv::WINDOW_AUTOSIZE);
+    cv::setMouseCallback(annotation_window, Image::mouse_click, this);
 
     cv::Mat current_view = image;
     cv::imshow(annotation_window, current_view);
@@ -119,7 +119,7 @@ std::vector<Annotation> Image::annotate(void)
 
     do
     {
-        key = 0xFF & waitKey(0);
+        key = 0xFF & cv::waitKey(0);
 
         switch (key)
         {
@@ -155,3 +155,5 @@ std::vector<Annotation> Image::annotate(void)
     cv::destroyWindow(annotation_window);
     return RoIs;
 }
+
+Image::~Image(){}

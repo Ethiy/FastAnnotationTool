@@ -9,6 +9,7 @@
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 
 
 /*---Dimensions---*/
@@ -74,25 +75,25 @@ inline bool Image::is_loaded(void)
 
 inline int Image::get_height(void)
 {
-	  assert( is_loaded(void) );
+	  assert( is_loaded() );
 	  return height;
 }
 
 inline int Image::get_width(void)
 {
-	  assert( is_loaded(void) );
+	  assert( is_loaded() );
 	  return width;
 }
 
 inline long Image::get_area(void)
 {
-	  assert( is_loaded(void) );
+	  assert( is_loaded() );
 	  return(area);
 }
 
 inline int Image::get_channels(void)
 {
-	  assert( is_loaded(void) );
+	  assert( is_loaded() );
 	  return(channels);
 }
 

@@ -20,12 +20,10 @@ else
   include_flags := -I/opt/local/include
 endif
 
-tools = src/image/Image.cpp src/tools/tools.cpp
+tools = src/image/Image.cpp src/annotation/Annotation.cpp src/tools/tools.cpp
 
 all: $(tools)
-#	$(compiler) -o bin/extractRect $(include_flags) $(tools) src/Output.cpp src/extractRect.cpp $(lib_flags) $(lgflags)
-#	$(compiler) -o bin/annotateRect $(include_flags) $(tools) src/annotateRect.cpp $(lgflags) -lglog $(lib_flags)
-	$(compiler) -o tests/test_image $(include_flags) src/image/Image.cpp src/image/test.cpp $(lib_flags)
+	$(compiler) -o tests/test_image $(include_flags) src/image/Image.cpp src/annotation/Annotation.cpp src/image/test.cpp $(lib_flags)
 	$(compiler) -o bin/annotate $(include_flags) $(tools) src/annotate.cpp $(lib_flags)
 
 test_image: src/image/Image.cpp
