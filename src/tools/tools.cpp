@@ -30,7 +30,7 @@ std::string default_annotations_folder(std::string images_folder)
                 std::exit(ERROR_IN_PATH);
             else
             {
-                std::cout << std::endl << "      [INFO:][Successfully created directory: \"" << annotations_path.string() << " \".]" << std::endl;
+                std::cout << std::endl << "      [INFO]:[Successfully created directory: \"" << annotations_path.string() << " \".]" << std::endl;
             }
         }
         return annotations_path.string();
@@ -47,7 +47,7 @@ std::string default_annotations_folder(std::string images_folder)
 
 void argument_parser(int argc, const char *argv[], std::string& images_folder, std::string& annotations_folder)
 {
-    std::cout << std::endl << "[INFO:][Parsing arguments]." << std::endl;
+    std::cout << std::endl << "[INFO]:[Parsing arguments]." << std::endl;
     try
     {
         arg_parser::options_description description("Options");
@@ -94,7 +94,7 @@ void argument_parser(int argc, const char *argv[], std::string& images_folder, s
 std::vector<sys::path> get_images(std::string images_folder)
 {
     sys::path images_path(images_folder);
-    std::cout << std::endl << "[INFO:][Getting all PNG images in folder: \"" << images_folder << "\" ]." << std::endl;
+    std::cout << std::endl << "[INFO]:[Getting all PNG images in folder: \"" << images_folder << "\" ]." << std::endl;
     std::vector<sys::path> images;
     sys::directory_iterator end_itr;
     try

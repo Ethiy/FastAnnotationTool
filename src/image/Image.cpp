@@ -139,15 +139,20 @@ std::vector<Annotation> Image::annotate(void)
                 std::cout << "Enter class: ";
                 std::string object_class;
                 std::cin >> object_class;
-                std::cout << std::endl;
-                RoIs.push_back( Annotation(object_class, first_corner, second_corner) );
+                Annotation current_annotation = Annotation(object_class, first_corner, second_corner);
+                RoIs.push_back( current_annotation );
+                std::cout << "[INFO]:[ \"" << current_annotation << "\" has just been added.]" << std::endl;
                 cv::rectangle(current_view, first_corner, second_corner, GREEN);
                 break;
             }
             case Delete:
             {
                 if(!RoIs.empty())
+                {
+                    Annotation last_annotation = *(RoIs.end());
                     RoIs.pop_back();
+                    std::cout << "[INFO]:[ \"" << last_annotation << "\" has just been deleted.]" << std::endl;
+                }
                 else
                     std::cout << "[INFO]:[There is no annotation to delete!]" << std::endl;
                 break;
