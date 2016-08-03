@@ -12,16 +12,12 @@ int main(int argc, const char *argv[])
     argument_parser(argc, argv, images_folder, annotations_folder);
     std::vector<sys::path> images = get_images(images_folder);
     std::vector<std::vector<Annotation>> annotations;
-    std::transform(images.begin(), images.end(), annotations.begin(),
-                                                                    [](sys::path image_path)
-                                                                    {
-                                                                        Image current_image(image_path);
-                                                                        current_image.redimension();
-                                                                        current_image.save_to(image_path);
-                                                                        
-                                                                        return current_image.annotate();
-                                                                    }
-                                                                    );
-    
+    for(std::vector<sys::path>::iterator iterator = images.begin(); iterator != images.end(); iterator++)
+    {
+        Image current_image(*iterator);
+        current_image.redimension();
+        current_image.save_to(*iterator);
+        annotations.push_back(current_image.annotate());
+    }    
     return EXIT_SUCCESS;
 }

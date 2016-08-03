@@ -63,7 +63,7 @@ void Image::save_to(sys::path image_path)
         std::cerr << "[ERROR]:[Exception converting image to PNG format: " << exeption.what() << "]." << std::endl;
         std::exit(EXIT_FAILURE);
     }
-    std::cout << "[INFO]:[Image Saved to: " << image_path.string() << ".]" << std::endl;
+    std::cout << "[INFO]:[Image Saved to: " << image_path.string() << "]" << std::endl;
 }
 
 void Image::mouse_click(int event, int x, int y, int flags, void* params)
