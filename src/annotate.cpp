@@ -15,11 +15,11 @@ int main(int argc, const char *argv[])
     std::transform(images.begin(), images.end(), annotations.begin(),
                                                                     [](sys::path image_path)
                                                                     {
-                                                                        Image working_image(image_path);
-                                                                        working_image.redimension();
-                                                                        working_image.save_to(image_path);
+                                                                        Image current_image(image_path);
+                                                                        current_image.redimension();
+                                                                        current_image.save_to(image_path);
                                                                         
-                                                                        return working_image.annotate();
+                                                                        return current_image.annotate();
                                                                     }
                                                                     );
     
