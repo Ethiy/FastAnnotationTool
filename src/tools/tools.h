@@ -26,6 +26,6 @@ void argument_parser(int argc, const char *argv[], std::string& images_folder, s
 
 std::vector<sys::path> get_images(std::string);
 
-sys::path set_annotation_path(sys::path);
+sys::path set_annotation_path(std::string, sys::path);
 
 #endif
