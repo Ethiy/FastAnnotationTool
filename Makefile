@@ -24,13 +24,13 @@ tools = src/image/Image.cpp src/annotation/Annotation.cpp src/tools/tools.cpp
 
 all: $(tools)
 	$(compiler) -o tests/test_image $(include_flags) src/image/Image.cpp src/annotation/Annotation.cpp src/image/test.cpp $(lib_flags)
-	$(compiler) -o bin/annotate $(include_flags) $(tools) src/annotate.cpp $(lib_flags)
+	$(compiler) -o bin/annotate $(include_flags) $(tools) src/run/annotate.cpp $(lib_flags)
 
 test_image: src/image/Image.cpp
 	$(compiler) -o tests/test_image $(include_flags) src/image/Image.cpp src/image/test.cpp $(lib_flags)
 
 annotation: $(tools)
-	$(compiler) -o bin/annotate $(include_flags) $(tools) src/annotate.cpp $(lib_flags)
+	$(compiler) -o bin/annotate $(include_flags) $(tools) src/run/annotate.cpp $(lib_flags)
 
 clean_tests:
 	rm tests/*

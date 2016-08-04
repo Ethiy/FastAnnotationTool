@@ -1,6 +1,6 @@
-#include "tools/tools.h"
-#include "annotation/Annotation.h"
-#include "image/Image.h"
+#include "../tools/tools.h"
+#include "../annotation/Annotation.h"
+#include "../image/Image.h"
 
 #include <algorithm>
 #include <numeric>
