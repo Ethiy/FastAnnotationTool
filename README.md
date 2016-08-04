@@ -12,7 +12,7 @@ FIAT is a simple tool build for image data annotation using rectangles. It is ba
                   - core
                   - highgui
 
-### Folder architecture:
+## Folder architecture:
 
 The folder hierarchy should resemble that of the PASCAL challenge: i.e.
 ```
@@ -30,11 +30,11 @@ For each image in `data/Images/foo.png`should correspond an annotation file `dat
 bar <x1> <x2> <y1> <y2> LF
 ```
 
-### Building
+## Building
 
 You can build the project on Unix/Mac systems using the Makefile. You should however make sure Boost and OpenCV directories  in lines #15 to #20 are the right ones. 
 
 On Windows, you can use Cmake to generate the project - on Visual Studio for instance - and build it.
 
-### Tutorial
+## Tutorial
 
