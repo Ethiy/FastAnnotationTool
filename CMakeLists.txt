@@ -46,7 +46,7 @@ else(CHECK_CXX_COMPILER_USED1)
 endif(CHECK_CXX_COMPILER_USED1)
 
 #OpenCV
-FIND_PACKAGE(OpenCV REQUIRED core imgproc highgui)
+FIND_PACKAGE(OpenCV REQUIRED core imgproc highgui imgcodecs)
 if(OpenCV_Found)
     INCLUDE_DIRECTORIES(${OpenCV_INCLUDE_DIR})
 endif(OpenCV_Found)
