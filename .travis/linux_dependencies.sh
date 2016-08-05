@@ -1,4 +1,4 @@
-#! /usr/bin/env sh
+#! /usr/bin/env bash
 
 sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
 sudo apt-get -qq update
@@ -18,4 +18,3 @@ sudo make install
 sudo sh -c 'echo "/usr/local/lib" > /etc/ld.so.conf.d/opencv.conf'
 sudo ldconfig
 cd ../../..
-pwd
