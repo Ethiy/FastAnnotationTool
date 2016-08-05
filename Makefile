@@ -7,7 +7,7 @@ else ifeq ($(UNAME), Darwin)
 endif
 
 boost_l := -lboost_system-mt -lboost_program_options-mt -lboost_filesystem-mt
-opencv_l := -lopencv_calib3d -lopencv_core -lopencv_features2d -lopencv_flann -lopencv_highgui -lopencv_imgcodecs -lopencv_imgproc -lopencv_ml -lopencv_objdetect -lopencv_photo -lopencv_shape -lopencv_stitching -lopencv_superres -lopencv_video -lopencv_videoio -lopencv_videostab
+opencv_l := -lopencv_core -lopencv_highgui -lopencv_imgcodecs -lopencv_imgproc
 
 # Linux
 ifeq ($(LINUX), 1)
@@ -15,6 +15,7 @@ ifeq ($(LINUX), 1)
   lib_flags := -L/usr/local/lib/ $(boost_l) $(opencv_l)
   include_flags := -I/usr/local/include/opencv2
 else
+# OSX
   compiler = clang++ -std=c++11 -Wall -pedantic
   lib_flags := -L/opt/local/lib $(boost_l) $(opencv_l)
   include_flags := -I/opt/local/include

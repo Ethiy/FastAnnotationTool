@@ -11,6 +11,7 @@ FIAT is a simple tool build for image data annotation using rectangles. It is ba
 - OpenCV Library: - imgproc
                   - core
                   - highgui
+                  - imgcodecs
 
 ## Folder architecture:
 
@@ -27,7 +28,7 @@ data/
 
 For each image in `data/Images/foo.png`should correspond an annotation file `data/Annotations/foo.txt` containing objects' coordinates and their classes:
 ```
-bar <x1> <x2> <y1> <y2> LF
+bar <x1> <x2> <y1> <y2>LF
 ```
 
 ## Building
