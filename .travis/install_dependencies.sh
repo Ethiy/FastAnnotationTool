@@ -4,12 +4,15 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     brew update
     brew outdated
     brew upgrade
+    brew install cmake boost
     brew tap homebrew/science
     brew install opencv
 else
     sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
     sudo apt-get -qq update
     sudo apt-get install -y build-essential g++-5 software-properties-common libboost-all-dev
+    sudo add-apt-repository -y ppa:boost-latest/ppa
+    sudo apt-get update && sudo apt-get -y upgrade
     export CXX="g++-5"
     sudo add-apt-repository -y ppa:george-edison55/cmake-3.x
     sudo apt-get -qq update
