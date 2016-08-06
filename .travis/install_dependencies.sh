@@ -3,7 +3,7 @@
 if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     brew update
     brew outdated
-    brew upgrade cmake boost
+    brew upgrade
     brew tap homebrew/science
     brew install opencv
 else

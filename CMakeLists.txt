@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.4)
+cmake_minimum_required(VERSION 3.2)
 include(CheckCXXCompilerFlag)
 project(FIAT CXX)
 
@@ -32,8 +32,6 @@ else(CHECK_CXX_COMPILER_USED1)
     else(COMPILER_SUPPORTS_CXX17)
         message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
     endif(COMPILER_SUPPORTS_CXX17)
-
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 
     if(CHECK_CXX_COMPILER_USED2)
     elseif("${CMAKE_CXX_COMPILER_ID}x" MATCHES "Clangx")
