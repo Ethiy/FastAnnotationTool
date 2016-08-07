@@ -6,7 +6,8 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     brew upgrade
     brew install cmake
     brew tap homebrew/science
-    brew install opencv3
+    brew install opencv3 --c++11
+    brew ln opencv3 --force
 else
     # GCC 6
     sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
@@ -22,7 +23,7 @@ else
     tar jxf boost_1_61_0.tar.bz2
     rm boost_1_61_0.tar.bz2
     cd boost_1_61_0
-    sudo ./bootstrap.sh --prefix=/usr
+    sudo ./bootstrap.sh --prefix=/usr/local
     sudo ./b2 stage threading=multi link=shared -j4
     cd ..
 
