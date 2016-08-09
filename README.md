@@ -2,7 +2,7 @@
 
 ## Abstract
 
-FIAT is a simple tool build for image data annotation using rectangles. It is based on OpenCV high GUI. The User can select rectangular regions of interests whilst assigning class names to each object.
+FIAT is a simple cross platform tool build for image data annotation using rectangles. It is based on OpenCV high GUI. The User can select rectangular regions of interests whilst assigning class names to each object.
 
 ## Dependencies
 
@@ -35,8 +35,23 @@ bar <x1> <x2> <y1> <y2>LF
 
 ## Building
 
-You can build the project on Unix/Mac systems using the Makefile. You should however make sure Boost and OpenCV directories  in lines #15 to #20 are the right ones.
+Run CMake to generate the project on Linux, OS X and Windows and proceed to build.
 
-On Windows, you can use Cmake to generate the project - on Visual Studio for instance - and build it.
+On Linux/OS X:
+
+```bash
+cd /path/to/FIAT
+mkdir build && cd build
+cmake .. [-D options]
+make all
+make install
+```
+
+On Windows:
+
+```cmd
+cd /path/to/FIAT
+
+```
 
 ## Tutorial
