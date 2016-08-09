@@ -3,9 +3,9 @@
 
 #include "../tools/tools.h"
 #include "../annotation/Annotation.h"
+#include "../annotation/Annotations.h"
 
 #include <cassert>
-#include <vector>
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
@@ -50,7 +50,7 @@ public:
 
     void save_to(sys::path);
 
-    std::vector<Annotation> annotate(void);
+    Annotations annotate(void);
 
 private:
 

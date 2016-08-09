@@ -7,6 +7,8 @@ Annotation::Annotation(void): set(true), object_class(""), x1(0), y1(0), x2(0), 
     width = x2 - x1;
 }
 
+Annotation::~Annotation(void){}
+
 Annotation::Annotation(std::string object_class, cv::Point first_corner, cv::Point second_corner): set(true), object_class(object_class)
 {
     x1 = std::min(first_corner.x, second_corner.x);
@@ -16,8 +18,6 @@ Annotation::Annotation(std::string object_class, cv::Point first_corner, cv::Poi
     height = y2 - y1;
     width = x2 - x1;
 }
-
-Annotation::~Annotation(void){}
 
 int Annotation::get_width(void)
 {
@@ -31,6 +31,7 @@ int Annotation::get_height(void)
     return height;
 }
 
-std::ostream& operator<<(std::ostream &strm, const Annotation &a) {
+std::ostream& operator<<(std::ostream &strm, const Annotation &a) 
+{
   return strm << a.object_class << " " << a.x1 << " " << a.x2 << " " << a.y1 << " " << a.y2;
 }

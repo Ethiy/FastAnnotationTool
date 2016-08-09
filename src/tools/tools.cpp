@@ -120,3 +120,27 @@ sys::path set_annotation_path(std::string annotations_folder, sys::path image_pa
     annotation_path /= file;
     return annotation_path.replace_extension("txt");
 }
+
+void save_annotations(std::string annotations_folder, sys::path image_path, Annotations annotations)
+{
+    sys::path annotation_path = set_annotation_path(annotations_folder, image_path);
+    save_annotations_to(annotation_path, annotations);
+}
+
+
+void save_annotations_to(sys::path annotation_path, Annotations annotations)
+{
+    std::ofstream output(annotation_path.string());
+    output.exceptions( std::ofstream::failbit | std::ofstream::badbit );
+    try
+    {
+        output << Annotations << std::endl;
+    }
+    catch (std::ofstream::failure& const exception)
+    {
+        std::cerr << "[ERROR]:" << exception.what() << std::endl;
+        std::exit(ERROR_IN_PATH);
+    }
+
+}
+

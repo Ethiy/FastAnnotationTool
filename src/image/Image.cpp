@@ -108,9 +108,9 @@ void Image::_mouse_click(int event, int x, int y, int flags)
     }
 }
 
-std::vector<Annotation> Image::annotate(void)
+Annotations Image::annotate(void)
 {
-    std::vector< Annotation> RoIs;
+    Annotations RoIs;
 
     cv::namedWindow(annotation_window, cv::WINDOW_AUTOSIZE);
     cv::setMouseCallback(annotation_window, Image::mouse_click, this);
@@ -140,17 +140,16 @@ std::vector<Annotation> Image::annotate(void)
                 std::string object_class;
                 std::cin >> object_class;
                 Annotation current_annotation = Annotation(object_class, first_corner, second_corner);
-                RoIs.push_back( current_annotation );
+                RoIs.append( current_annotation );
                 std::cout << "[INFO]:[ \"" << current_annotation << "\" has just been added.]" << std::endl;
                 cv::rectangle(current_view, first_corner, second_corner, GREEN);
                 break;
             }
             case Delete:
             {
-                if(!RoIs.empty())
+                if(!RoIs.is_empty())
                 {
-                    Annotation last_annotation = *(RoIs.end());
-                    RoIs.pop_back();
+                    Annotation last_annotation = RoIs.pop();
                     std::cout << "[INFO]:[ \"" << last_annotation << "\" has just been deleted.]" << std::endl;
                 }
                 else
