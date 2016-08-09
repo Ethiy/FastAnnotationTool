@@ -17,18 +17,14 @@ ifeq ($(LINUX), 1)
 else
 # OSX
   compiler = clang++ -std=c++11 -Wall -pedantic
-  lib_flags := -L/opt/local/lib $(boost_l) $(opencv_l)
-  include_flags := -I/opt/local/include
+  lib_flags := -L/usr/local/lib $(boost_l) $(opencv_l)
+  include_flags := -I/usr/local/include
 endif
 
-tools = src/image/Image.cpp src/annotation/Annotation.cpp src/tools/tools.cpp
+tools = src/image/Image.cpp src/annotation/Annotation.cpp src/annotation/Annotations.cpp src/tools/tools.cpp
 
 all: $(tools)
-	$(compiler) -o tests/test_image $(include_flags) src/image/Image.cpp src/annotation/Annotation.cpp src/image/test.cpp $(lib_flags)
 	$(compiler) -o bin/annotate $(include_flags) $(tools) src/run/annotate.cpp $(lib_flags)
-
-test_image: src/image/Image.cpp
-	$(compiler) -o tests/test_image $(include_flags) src/image/Image.cpp src/image/test.cpp $(lib_flags)
 
 annotation: $(tools)
 	$(compiler) -o bin/annotate $(include_flags) $(tools) src/run/annotate.cpp $(lib_flags)
