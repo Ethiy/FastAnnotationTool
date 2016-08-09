@@ -25,7 +25,7 @@
 <h2>
 <a id="abstract" class="anchor" href="#abstract" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Abstract</h2>
 
-<p>FIAT is a simple tool build for image data annotation using rectangles. It is based on OpenCV high GUI. The User can select rectangular regions of interests whilst assigning class names to each object.</p>
+<p>FIAT is a simple cross platform tool build for image data annotation using rectangles. It is based on OpenCV high GUI. The User can select rectangular regions of interests whilst assigning class names to each object.</p>
 
 <h2>
 <a id="dependencies" class="anchor" href="#dependencies" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dependencies</h2>
@@ -61,9 +61,20 @@
 <h2>
 <a id="building" class="anchor" href="#building" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Building</h2>
 
-<p>You can build the project on Unix/Mac systems using the Makefile. You should however make sure Boost and OpenCV directories  in lines #15 to #20 are the right ones.</p>
+<p>Run CMake to generate the project on Linux, OS X and Windows and proceed to build.</p>
 
-<p>On Windows, you can use Cmake to generate the project - on Visual Studio for instance - and build it.</p>
+<p>On Linux/OS X:</p>
+
+<div class="highlight highlight-source-shell"><pre><span class="pl-c1">cd</span> /path/to/FIAT
+mkdir build <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">cd</span> build
+cmake .. [-D options]
+make all
+make install</pre></div>
+
+<p>On Windows:</p>
+
+<div class="highlight highlight-source-dosbatch"><pre><span class="pl-k">cd</span> /<span class="pl-k">path</span>/to/FIAT
+</pre></div>
 
 <h2>
 <a id="tutorial" class="anchor" href="#tutorial" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Tutorial</h2>
