@@ -45,7 +45,7 @@ std::string default_annotations_folder(std::string images_folder)
     }
 }
 
-void argument_parser(int argc, const char *argv[], std::string& images_folder, std::string& annotations_folder)
+void argument_parser(int argc, const char *argv[], std::string& images_folder, std::string& annotations_folder, int& min_dim)
 {
     std::cout << std::endl << "[INFO]:[Parsing arguments]." << std::endl;
     try
@@ -56,7 +56,8 @@ void argument_parser(int argc, const char *argv[], std::string& images_folder, s
             ("images", arg_parser::value<std::string>(& images_folder)->required(), 
             "Folder containing images:\nUse absolute paths to avoid problems.\n[example - /some/long/path/to/data/Images]")
             ("annotations", arg_parser::value<std::string>(& annotations_folder),
-            "Folder containing annotations:\nUse absolute paths to avoid problems.\n[default value - /some/long/path/to/data/Annotations]");
+            "Folder containing annotations:\nUse absolute paths to avoid problems.\n[default value - /some/long/path/to/data/Annotations]")
+            ("min_dim", arg_parser::value<int>(& min_dim)->required(), "Minimal dimension for the image.\n[example - 224]");
         arg_parser::variables_map vm;
 
         try
@@ -66,9 +67,9 @@ void argument_parser(int argc, const char *argv[], std::string& images_folder, s
 
             if(vm.count("help"))
                 std::cout << description << std::endl;
-            if (vm.count("images")) 
-                std::cout << std::endl << "    The images folder path has been set to:           \"" << vm["images"].as<std::string>() << "\"." << std::endl;
-            if (vm.count("annotations")) 
+            if(vm.count("images"))
+                std::cout << std::endl << "    The images folder path has been set to:          \"" << vm["images"].as<std::string>() << "\"." << std::endl;
+            if(vm.count("annotations")) 
                 std::cout << std::endl << "    The annotations folder path has been set to:     \"" << vm["annotations"].as<std::string>() << "\"." << std::endl;
             else
             {
@@ -76,6 +77,8 @@ void argument_parser(int argc, const char *argv[], std::string& images_folder, s
                 std::cout << "    The annotations folder path was not specified." << std::endl << 
                                         "      - The default value is deduced to be:            \"" << annotations_folder << "\"." << std::endl;
             }
+            if(vm.count("min_dim"))
+                std::cout << std::endl << "    The minimal dimension was set to:                \"" << min_dim << "\"." << std::endl;
         }
         catch (arg_parser::error const& error)
         {

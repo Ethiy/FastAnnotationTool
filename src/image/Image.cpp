@@ -1,7 +1,5 @@
 #include "Image.h"
 
-const double min_dim = 224; 
-const double max_dim = 500;
 
 const cv::Scalar RED = cv::Scalar(0,0,255);
 const cv::Scalar BLUE = cv::Scalar(255,0,0);
@@ -39,7 +37,7 @@ Image::Image(sys::path image_path)
     }
 }
 
-void Image::redimension(void)
+void Image::redimension(int min_dim)
 {
     auto ratio = min_dim/static_cast<double>( height );
     cv::resize( image , image , cv::Size() , ratio ,ratio , cv::INTER_AREA );

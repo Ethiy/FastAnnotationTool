@@ -13,10 +13,6 @@
 #include <opencv2/imgcodecs/imgcodecs.hpp>
 
 
-/*---Dimensions---*/
-extern const double min_dim; /* Minimum dimension of the full image */
-extern const double max_dim; /* Maximum dimension of the to-be-shown image */
-
 /*---Colors---*/
 extern const cv::Scalar RED;
 extern const cv::Scalar BLUE;
@@ -46,7 +42,7 @@ public:
     long get_area(void);
     int get_channels(void);
 
-    void redimension(void);
+    void redimension(int);
 
     void save_to(sys::path);
 
