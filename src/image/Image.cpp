@@ -115,7 +115,6 @@ Annotations Image::annotate(void)
     cv::namedWindow(annotation_window, cv::WINDOW_AUTOSIZE);
     cv::setMouseCallback(annotation_window, Image::mouse_click, this);
 
-    cv::Mat current_view = image;
     cv::imshow(annotation_window, current_view);
 
     int key = 0;

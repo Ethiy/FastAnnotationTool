@@ -17,7 +17,7 @@ FIAT is a simple cross platform tool build for image data annotation using recta
 
 The folder hierarchy should resemble that of the PASCAL challenge: i.e.
 
-```
+```txt
 data/
     |-- Annotations/
          |-- *.txt (Annotation files)
@@ -29,7 +29,7 @@ data/
 
 For each image in `data/Images/foo.png`should correspond an annotation file `data/Annotations/foo.txt` containing objects' coordinates and their classes:
 
-```
+```csv
 bar <x1> <x2> <y1> <y2>LF
 ```
 
