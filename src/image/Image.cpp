@@ -15,6 +15,7 @@ const int Delete = 100;
 const int ESC = 27;
 
 cv::Point first_corner(0,0), second_corner(0,0);
+cv::Mat current_view;
 bool getting_roi = false;
 
 
@@ -72,7 +73,6 @@ void Image::mouse_click(int event, int x, int y, int flags, void* params)
 
 void Image::_mouse_click(int event, int x, int y, int flags)
 {
-    cv::Mat current_view;
     switch(event)
     {
         case cv::EVENT_LBUTTONDOWN:
@@ -140,6 +140,7 @@ Annotations Image::annotate(void)
                 Annotation current_annotation = Annotation(object_class, first_corner, second_corner);
                 RoIs.append( current_annotation );
                 std::cout << "[INFO]:[ \"" << current_annotation << "\" has just been added.]" << std::endl;
+                std::cout << "[INFO]:[ Currently, you have annotated \"" << RoIs.size() << "\" objects.]" << std::endl;
                 cv::rectangle(current_view, first_corner, second_corner, GREEN);
                 break;
             }
@@ -149,6 +150,7 @@ Annotations Image::annotate(void)
                 {
                     Annotation last_annotation = RoIs.pop();
                     std::cout << "[INFO]:[ \"" << last_annotation << "\" has just been deleted.]" << std::endl;
+                    std::cout << "[INFO]:[ Currently, you have annotated \"" << RoIs.size() << "\" objects.]" << std::endl;
                 }
                 else
                     std::cout << "[INFO]:[There is no annotation to delete!]" << std::endl;

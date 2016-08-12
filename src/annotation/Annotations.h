@@ -31,7 +31,6 @@ private:
 
 inline bool Annotations::is_empty(void)
 {
-    assert(length==0);
     return annotations.empty();
 }
 

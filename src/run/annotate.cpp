@@ -17,7 +17,6 @@ int main(int argc, const char **argv)
                                                 {
                                                     Image current_image(current_png_file);
                                                     current_image.redimension(min_dim);
-                                                    std::cout << current_image.get_width() << std::endl;
                                                     current_image.save_to(current_png_file);
                                                     Annotations current_annotations = current_image.annotate();
                                                     save_annotations(annotations_folder, current_png_file, current_annotations);
