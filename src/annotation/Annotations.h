@@ -6,7 +6,7 @@
 #include <cassert>
 #include <string>
 #include <algorithm>
-#include <vector>
+#include <numeric>
 #include <iostream>
 
 class Annotations

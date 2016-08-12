@@ -39,7 +39,7 @@ Image::Image(sys::path image_path)
 
 void Image::redimension(int min_dim)
 {
-    auto ratio = min_dim/static_cast<double>( height );
+    double ratio = static_cast<double>(min_dim) /static_cast<double>( height );
     cv::resize( image , image , cv::Size() , ratio ,ratio , cv::INTER_AREA );
     height = image.rows;
     width = image.cols;
@@ -113,6 +113,7 @@ Annotations Image::annotate(void)
     cv::namedWindow(annotation_window, cv::WINDOW_AUTOSIZE);
     cv::setMouseCallback(annotation_window, Image::mouse_click, this);
 
+    cv::Mat current_view = image.clone();
     cv::imshow(annotation_window, current_view);
 
     int key = 0;

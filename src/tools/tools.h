@@ -21,7 +21,7 @@ namespace
 namespace arg_parser = boost::program_options;
 namespace sys = boost::filesystem;
 
-void argument_parser(int argc, const char *argv[], std::string& images_folder, std::string& annotations_folder);
+void argument_parser(int, char const** , std::string &, std::string &, int &);
 
 std::vector<sys::path> get_images(std::string);
 

@@ -45,7 +45,7 @@ std::string default_annotations_folder(std::string images_folder)
     }
 }
 
-void argument_parser(int argc, const char *argv[], std::string& images_folder, std::string& annotations_folder, int& min_dim)
+void argument_parser(int argc, const char **argv, std::string& images_folder, std::string& annotations_folder, int& min_dim)
 {
     std::cout << std::endl << "[INFO]:[Parsing arguments]." << std::endl;
     try
@@ -75,7 +75,7 @@ void argument_parser(int argc, const char *argv[], std::string& images_folder, s
             {
                 annotations_folder = default_annotations_folder(images_folder);
                 std::cout << "    The annotations folder path was not specified." << std::endl << 
-                                        "      - The default value is deduced to be:            \"" << annotations_folder << "\"." << std::endl;
+                                        "      - The default value is deduced to be:          \"" << annotations_folder << "\"." << std::endl;
             }
             if(vm.count("min_dim"))
                 std::cout << std::endl << "    The minimal dimension was set to:                \"" << min_dim << "\"." << std::endl;
@@ -113,6 +113,7 @@ std::vector<sys::path> get_images(std::string images_folder)
         std::cerr << "[ERROR]:[boost::filesystem::is_regular_file(" << images_folder << ") failed:" << error.code().message() << "]." << std::endl;
         std::exit(ERROR_IN_PATH);
     }
+    std::cout << "[INFO]:[Found " << images.size() << " png files.]" << std::endl;
     return images;
 }
 
@@ -124,22 +125,15 @@ sys::path set_annotation_path(std::string annotations_folder, sys::path image_pa
     return annotation_path.replace_extension("txt");
 }
 
-void save_annotations(std::string annotations_folder, sys::path image_path, Annotations annotations)
-{
-    sys::path annotation_path = set_annotation_path(annotations_folder, image_path);
-    save_annotations_to(annotation_path, annotations);
-}
-
-
 void save_annotations_to(sys::path annotation_path, Annotations annotations)
 {
     std::ofstream output(annotation_path.string());
     output.exceptions( std::ofstream::failbit | std::ofstream::badbit );
     try
     {
-        output << Annotations << std::endl;
+        output << annotations;
     }
-    catch (std::ofstream::failure& const exception)
+    catch (std::ofstream::failure const& exception)
     {
         std::cerr << "[ERROR]:" << exception.what() << std::endl;
         std::exit(ERROR_IN_PATH);
@@ -147,3 +141,8 @@ void save_annotations_to(sys::path annotation_path, Annotations annotations)
 
 }
 
+void save_annotations(std::string annotations_folder, sys::path image_path, Annotations annotations)
+{
+    sys::path annotation_path = set_annotation_path(annotations_folder, image_path);
+    save_annotations_to(annotation_path, annotations);
+}
