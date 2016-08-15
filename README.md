@@ -47,7 +47,6 @@ cd /path/to/FIAT
 mkdir build && cd build
 cmake .. [-D options]
 make all
-make install
 ```
 
 On Windows:
