@@ -31,7 +31,13 @@ int Annotation::get_height(void)
     return height;
 }
 
-std::ostream& operator<<(std::ostream &strm, const Annotation &a) 
+void Annotation::draw(cv::Mat& current_view, cv::Scalar color)
 {
-  return strm << a.object_class << " " << a.x1 << " " << a.x2 << " " << a.y1 << " " << a.y2;
+    cv::rectangle(current_view, cv::Point(x1, y1), cv::Point(x2, y2), color);
+}
+
+
+std::ostream& operator<<(std::ostream &strm, const Annotation &_annotation) 
+{
+  return strm << _annotation.object_class << " " << _annotation.x1 << " " << _annotation.x2 << " " << _annotation.y1 << " " << _annotation.y2;
 }

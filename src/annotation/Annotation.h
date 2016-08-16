@@ -7,6 +7,7 @@
 #include <iostream>
 
 #include <opencv2/core/core.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 
 class Annotation
 {
@@ -21,6 +22,8 @@ public:
     cv::Point get_second_corner(void);
     int get_width(void);
     int get_height(void);
+    
+    void draw(cv::Mat&, cv::Scalar);
 
 private:
     bool set;

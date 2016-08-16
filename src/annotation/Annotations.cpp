@@ -1,9 +1,21 @@
 #include "Annotations.h"
 
 
-Annotations::Annotations(void):length(0), annotations{} {}
+Annotations::Annotations(void):length(0), annotations() {}
 
 Annotations::~Annotations(void){}
+
+void Annotations::draw(cv::Mat& current_view, cv::Scalar color)
+{
+    if(!is_empty())
+    {
+        std::for_each(annotations.begin(), annotations.end(), [& current_view, color](Annotation annotation)
+                                                                {
+                                                                    annotation.draw(current_view, color);
+                                                                }
+                                                            );
+    }
+}
 
 bool Annotations::append(Annotation annotation)
 {

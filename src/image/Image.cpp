@@ -127,7 +127,6 @@ Annotations Image::annotate(void)
         {
             case ESC:
             {
-                cv::destroyWindow(annotation_window);
                 escape = true;
                 break;
             }

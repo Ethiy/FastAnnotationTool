@@ -9,6 +9,10 @@
 #include <numeric>
 #include <iostream>
 
+#include <opencv2/core/core.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+
+
 class Annotations
 {
 public:
@@ -20,9 +24,9 @@ public:
     bool append(Annotation);
     Annotation pop(void);
 
-private:
-    bool set;
+    void draw(cv::Mat& , cv::Scalar);
 
+private:
     std::vector<Annotation> annotations;
     size_t length;
 
