@@ -22,6 +22,7 @@ bool Annotations::append(Annotation annotation)
     assert(length==annotations.size());
     annotations.push_back(annotation);
     length++;
+    return true;
 }
 
 Annotation Annotations::pop(void)

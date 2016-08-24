@@ -95,7 +95,7 @@ file(GLOB_RECURSE FIAT_ANNOTATE_HEADERS
 )
 
 file(GLOB_RECURSE FIAT_ANNOTATE_SRC
-	"${FIAT_SOURCE_DIR}/src/run/annotate.cpp"
+	"${FIAT_SOURCE_DIR}/src/app/annotate.cpp"
 )
 
 add_executable(annotate ${INCLUDE_DIRECTORIES} ${FIAT_LIB_HEADERS} ${FIAT_ANNOTATE_HEADERS} ${FIAT_ANNOTATE_SRC})

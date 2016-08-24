@@ -15,7 +15,6 @@ const int Delete = 100;
 const int ESC = 27;
 
 cv::Point first_corner(0,0), second_corner(0,0);
-cv::Mat current_view;
 bool getting_roi = false;
 
 
@@ -95,7 +94,7 @@ void Image::_mouse_click(int event, int x, int y, int flags)
         {
             if(getting_roi)
             {
-                current_view = image.clone();
+                cv::Mat current_view = image.clone();
                 cv::rectangle(current_view, first_corner, cv::Point(x,y), RED);
                 cv::imshow(annotation_window, current_view);
             }
@@ -113,8 +112,7 @@ Annotations Image::annotate(void)
     cv::namedWindow(annotation_window, cv::WINDOW_AUTOSIZE);
     cv::setMouseCallback(annotation_window, Image::mouse_click, this);
 
-    cv::Mat current_view = image.clone();
-    cv::imshow(annotation_window, current_view);
+    cv::imshow(annotation_window, image);
 
     int key = 0;
     bool escape = false;
@@ -122,6 +120,7 @@ Annotations Image::annotate(void)
     do
     {
         key = 0xFF & cv::waitKey(0);
+        cv::Mat temporary_view = image;
 
         switch (key)
         {
@@ -132,15 +131,15 @@ Annotations Image::annotate(void)
             }
             case Confirm:
             {
-                cv::rectangle(current_view, first_corner, second_corner, YELLOW);
+                //cv::rectangle(temporary_view, first_corner, second_corner, YELLOW);
                 std::cout << "Enter class: ";
                 std::string object_class;
                 std::cin >> object_class;
                 Annotation current_annotation = Annotation(object_class, first_corner, second_corner);
-                RoIs.append( current_annotation );
+                bool appended = RoIs.append( current_annotation ); // No error is thrown for now
                 std::cout << "[INFO]:[ \"" << current_annotation << "\" has just been added.]" << std::endl;
                 std::cout << "[INFO]:[ Currently, you have annotated \"" << RoIs.size() << "\" objects.]" << std::endl;
-                cv::rectangle(current_view, first_corner, second_corner, GREEN);
+                //cv::rectangle(temporary_view, first_corner, second_corner, GREEN);
                 break;
             }
             case Delete:
@@ -162,7 +161,11 @@ Annotations Image::annotate(void)
         if(escape)
             break;
 
+        RoIs.draw(temporary_view, GREEN);
+        cv::imshow(annotation_window, temporary_view);
+
     } while(key != Next );
+    
     cv::destroyWindow(annotation_window);
     return RoIs;
 }
