@@ -40,6 +40,7 @@ public:
     int get_width(void);
     long get_area(void);
     int get_channels(void);
+    cv::Mat current_view;
 
     void redimension(int);
 

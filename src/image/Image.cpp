@@ -15,7 +15,6 @@ const int Delete = 100;
 const int ESC = 27;
 
 cv::Point first_corner(0,0), second_corner(0,0);
-cv::Mat current_view;
 bool getting_roi = false;
 
 
@@ -95,7 +94,7 @@ void Image::_mouse_click(int event, int x, int y, int flags)
         {
             if(getting_roi)
             {
-                cv::Mat current_view = image.clone();
+                current_view = image.clone();
                 cv::rectangle(current_view, first_corner, cv::Point(x,y), RED);
                 cv::imshow(annotation_window, current_view);
             }
@@ -161,7 +160,6 @@ Annotations Image::annotate(void)
         if(escape)
             break;
 
-        std::cout << "ROIS size: " << RoIs.size() << std::endl;
         RoIs.draw(temporary_view, GREEN);
         current_view = temporary_view;
         cv::imshow(annotation_window, current_view);
