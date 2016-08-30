@@ -1,0 +1,7 @@
+# Ignore for github pages
+
+# Build
+build
+
+# VS Code
+.vscode
