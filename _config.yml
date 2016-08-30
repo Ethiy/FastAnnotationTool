@@ -1,0 +1,19 @@
+# Site settings
+title: Fast Image Annotation Tool
+header-img: img/home-bg.jpg
+email: oussama.ennafii@outlook.com
+copyright_name: Oussama Ennafii
+description: "Light Annotation tool using Qt backed OpenCV and Boost."
+baseurl: "http://ethiy.github.io"
+url: "/FastImageAnnotationTool/"
+github_username:  Ethiy
+email_username:  oussama.ennafii@outlook.com
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+paginate: 5
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
+
+gems: [jekyll-paginate, jekyll-feed]

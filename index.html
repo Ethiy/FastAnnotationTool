@@ -1,111 +1,96 @@
-<!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="UTF-8">
-    <title>Fastimageannotationtool by Ethiy</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-  </head>
-  <body>
-    <section class="page-header">
-      <h1 class="project-name">Fastimageannotationtool</h1>
-      <h2 class="project-tagline">Light Annotation tool using OpenCV</h2>
-      <a href="https://github.com/Ethiy/FastImageAnnotationTool" class="btn">View on GitHub</a>
-      <a href="https://github.com/Ethiy/FastImageAnnotationTool/zipball/master" class="btn">Download .zip</a>
-      <a href="https://github.com/Ethiy/FastImageAnnotationTool/tarball/master" class="btn">Download .tar.gz</a>
-    </section>
+---
+layout: page
+description: "Light Annotation tool using Qt backed OpenCV and Boost."
+---
 
-    <section class="main-content">
+  <section class="main-content">
       <h1>
-<a id="fast-image-annotation-tool-fiat" class="anchor" href="#fast-image-annotation-tool-fiat" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Fast Image Annotation Tool (FIAT)</h1>
+        <a id="fast-image-annotation-tool-fiat" class="anchor" href="#fast-image-annotation-tool-fiat" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Fast Image Annotation Tool (FIAT)</h1>
 
-<h2>
-<a id="abstract" class="anchor" href="#abstract" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Abstract</h2>
+        <h2>
+        <a id="abstract" class="anchor" href="#abstract" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Abstract</h2>
 
-<p>FIAT is a simple cross platform tool build for image data annotation using rectangles. It is based on OpenCV high GUI. The User can select rectangular regions of interests whilst assigning class names to each object.</p>
+        <p>FIAT is a simple cross platform tool build for image data annotation using rectangles. It is based on OpenCV high GUI. The User can select rectangular regions of interests whilst assigning class names to each object.</p>
 
-<h2>
-<a id="dependencies" class="anchor" href="#dependencies" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dependencies</h2>
+        <h2>
+        <a id="dependencies" class="anchor" href="#dependencies" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dependencies</h2>
 
-<ul>
-<li>Boost Library: 1. program_options
-             2. filesystem
-             3. system</li>
-<li>OpenCV 3 Library: 1. imgproc
-                2. core
-                3. highgui
-                4. imgcodecs</li>
-</ul>
+        <ul>
+        <li>Boost Library: 1. program_options
+                    2. filesystem
+                    3. system</li>
+        <li>OpenCV 3 Library: 1. imgproc
+                        2. core
+                        3. highgui
+                        4. imgcodecs</li>
+        </ul>
 
-<p>Preferably if a Qt backed OpenCV is better for a neat UI - c.f. <a href="http://docs.opencv.org/3.1.0/d3/d52/tutorial_windows_install.html#gsc.tab=0">Windows installation tutorial</a> on Windows platforms .</p>
+        <p>Preferably if a Qt backed OpenCV is better for a neat UI - c.f. <a href="http://docs.opencv.org/3.1.0/d3/d52/tutorial_windows_install.html#gsc.tab=0">Windows installation tutorial</a> on Windows platforms .</p>
 
-<h2>
-<a id="folder-architecture" class="anchor" href="#folder-architecture" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Folder architecture</h2>
+        <h2>
+        <a id="folder-architecture" class="anchor" href="#folder-architecture" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Folder architecture</h2>
 
-<p>The folder hierarchy should resemble that of the PASCAL challenge: i.e.</p>
+        <p>The folder hierarchy should resemble that of the PASCAL challenge: i.e.</p>
 
-<pre lang="txt"><code>data/
-    |-- Annotations/
-         |-- *.txt (Annotation files)
-    |-- Images/
-         |-- *.png (Image files)
-    |-- ImageSets/
-         |-- train.txt
-</code></pre>
+        <pre lang="txt"><code>data/
+            |-- Annotations/
+                |-- *.txt (Annotation files)
+            |-- Images/
+                |-- *.png (Image files)
+            |-- ImageSets/
+                |-- train.txt
+        </code></pre>
 
-<p>For each image in <code>data/Images/foo.png</code>should correspond an annotation file <code>data/Annotations/foo.txt</code> containing objects' coordinates and their classes:</p>
+        <p>For each image in <code>data/Images/foo.png</code>should correspond an annotation file <code>data/Annotations/foo.txt</code> containing objects' coordinates and their classes:</p>
 
-<pre lang="csv"><code>bar &lt;x1&gt; &lt;x2&gt; &lt;y1&gt; &lt;y2&gt;LF
-</code></pre>
+        <pre lang="csv"><code>bar &lt;x1&gt; &lt;x2&gt; &lt;y1&gt; &lt;y2&gt;LF
+        </code></pre>
 
-<h2>
-<a id="building" class="anchor" href="#building" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Building</h2>
+        <h2>
+        <a id="building" class="anchor" href="#building" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Building</h2>
 
-<p>Run CMake to generate the project on Linux, OS X and Windows and proceed to build.</p>
+        <p>Run CMake to generate the project on Linux, OS X and Windows and proceed to build.</p>
 
-<p>On Linux/OS X:</p>
+        <p>On Linux/OS X:</p>
 
-<div class="highlight highlight-source-shell"><pre><span class="pl-c1">cd</span> /path/to/FIAT
-mkdir build <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">cd</span> build
-cmake .. [-D options]
-make all
-make install</pre></div>
+        <div class="highlight highlight-source-shell"><pre><span class="pl-c1">cd</span> /path/to/FIAT
+        mkdir build <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">cd</span> build
+        cmake .. [-D options]
+        make all
+        make install</pre></div>
 
-<p>On Windows:</p>
+        <p>On Windows:</p>
 
-<div class="highlight highlight-source-dosbatch"><pre><span class="pl-k">cd</span> /<span class="pl-k">path</span>/to/FIAT
-<span class="pl-k">mkdir</span> build &amp;&amp; <span class="pl-k">cd</span> build</pre></div>
+        <div class="highlight highlight-source-dosbatch"><pre><span class="pl-k">cd</span> /<span class="pl-k">path</span>/to/FIAT
+        <span class="pl-k">mkdir</span> build &amp;&amp; <span class="pl-k">cd</span> build</pre></div>
 
-<p>Now open CMake GUI, generate a VS project and build the program.</p>
+        <p>Now open CMake GUI, generate a VS project and build the program.</p>
 
-<h2>
-<a id="tutorial" class="anchor" href="#tutorial" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Tutorial</h2>
+        <h2>
+        <a id="tutorial" class="anchor" href="#tutorial" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Tutorial</h2>
 
-<p>To launch the annotation program, run:</p>
+        <p>To launch the annotation program, run:</p>
 
-<div class="highlight highlight-source-shell"><pre>/path/to/annotate --images /path/to/data/Images/ --annotations /path/to/data/Annotations --min_dim <span class="pl-k">&lt;</span>minimal dimension size<span class="pl-k">&gt;</span></pre></div>
+        <div class="highlight highlight-source-shell"><pre>/path/to/annotate --images /path/to/data/Images/ --annotations /path/to/data/Annotations --min_dim <span class="pl-k">&lt;</span>minimal dimension size<span class="pl-k">&gt;</span></pre></div>
 
-<p>To get help run:</p>
+        <p>To get help run:</p>
 
-<div class="highlight highlight-source-shell"><pre>/path/to/annotate --help</pre></div>
+        <div class="highlight highlight-source-shell"><pre>/path/to/annotate --help</pre></div>
 
-<p>It is strongly recommended that you run the program without specifying the annotations directory, as it would be inferred automatically.
-Example:</p>
+        <p>It is strongly recommended that you run the program without specifying the annotations directory, as it would be inferred automatically.
+        Example:</p>
 
-<div class="highlight highlight-source-shell"><pre>./bin/annotate --images <span class="pl-k">~</span>/Desktop/Database/data/Images --min_dim 224</pre></div>
+        <div class="highlight highlight-source-shell"><pre>./bin/annotate --images <span class="pl-k">~</span>/Desktop/Database/data/Images --min_dim 224</pre></div>
 
-<h2>
-<a id="to-do" class="anchor" href="#to-do" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>To do</h2>
+        <h2>
+        <a id="to-do" class="anchor" href="#to-do" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>To do</h2>
 
-<ul>
-<li>Complete documentation.</li>
-<li>Improve annotation interface.</li>
-<li>Create unit tests.</li>
-<li>Add a second window to help tracking annotations and enter classes without going back to terminal.</li>
-</ul>
+        <ul>
+        <li>Complete documentation.</li>
+        <li>Improve annotation interface.</li>
+        <li>Create unit tests.</li>
+        <li>Add a second window to help tracking annotations and enter classes without going back to terminal.</li>
+        </ul>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/Ethiy/FastImageAnnotationTool">Fastimageannotationtool</a> is maintained by <a href="https://github.com/Ethiy">Ethiy</a>.</span>
@@ -113,8 +98,5 @@ Example:</p>
         <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
       </footer>
 
-    </section>
+  </section>
 
-  
-  </body>
-</html>
