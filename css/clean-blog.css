@@ -216,8 +216,13 @@ hr.small {
   }
 }
 .intro-header .page-heading .links{
-  margin-top: 10 px;
+  margin: 10px 0 30px;
 }
+
+.intro-header .page-heading .links .btn {
+  border-radius: 25px;
+}
+
 .post-preview > a {
   color: #404040;
 }
