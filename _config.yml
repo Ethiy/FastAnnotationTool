@@ -1,9 +1,9 @@
 # Site settings
-title: Fast Image Annotation Tool
+title: Oussama Ennafii
 header-img: img/home-bg.jpg
 email: oussama.ennafii@outlook.com
 copyright_name: Oussama Ennafii
-description: "Light Annotation tool using Qt backed OpenCV and Boost."
+description: "Personal Website."
 baseurl: "http://ethiy.github.io"
 url: "FastImageAnnotationTool/"
 github_username:  Ethiy
