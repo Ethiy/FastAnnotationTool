@@ -36,22 +36,6 @@ a img:hover,
 a img:focus {
   cursor: zoom-in;
 }
-
-.btn {
-  padding-top: 30px;
-  display: inline-block;
-  margin-bottom: 1rem;
-  background-color: #0085a1;
-  border-color: #808080;
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 5 px;
-}
-.btn:hover {
-  text-decoration: none;
-  background-color: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.3);
-}
 .btn + .btn {
   margin-left: 1rem; 
 }
@@ -230,6 +214,9 @@ hr.small {
   .intro-header .post-heading .subheading {
     font-size: 30px;
   }
+}
+.intro-header .page-heading .subheading .links{
+  margin-top: 10 px;
 }
 .post-preview > a {
   color: #404040;
