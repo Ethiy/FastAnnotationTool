@@ -4,8 +4,8 @@ header-img: img/home-bg.jpg
 email: oussama.ennafii@outlook.com
 copyright_name: Oussama Ennafii
 description: "Light Annotation tool using Qt backed OpenCV and Boost."
-baseurl: ""
-url: "http://ethiy.github.io/FastImageAnnotationTool/"
+baseurl: "http://ethiy.github.io"
+url: "FastImageAnnotationTool/"
 github_username:  Ethiy
 email_username:  oussama.ennafii@outlook.com
 
