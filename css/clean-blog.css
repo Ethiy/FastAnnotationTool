@@ -38,14 +38,14 @@ a img:focus {
 }
 
 .btn {
-  margin-top: 30px;
+  padding-top: 30px;
   display: inline-block;
   margin-bottom: 1rem;
-  background-color: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.2);
+  background-color: #0085a1;
+  border-color: #808080;
   border-style: solid;
   border-width: 1px;
-  border-radius: 0.3rem;
+  border-radius: 5 px;
 }
 .btn:hover {
   text-decoration: none;
