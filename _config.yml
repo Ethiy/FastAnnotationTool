@@ -7,6 +7,7 @@ description: "Light Annotation tool using Qt backed OpenCV and Boost."
 baseurl: "http://ethiy.github.io"
 url: "FastImageAnnotationTool/"
 github_username:  Ethiy
+linkedin_username: oussama-ennafii
 email_username:  oussama.ennafii@outlook.com
 
 # Build settings
