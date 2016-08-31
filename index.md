@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "Fast Image Annotation Tool."
+title: "Fast Image Annotation Tool"
 description: "Light Annotation tool using Qt backed OpenCV and Boost."
 ---
 
