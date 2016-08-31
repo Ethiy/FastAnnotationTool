@@ -216,6 +216,9 @@ hr.small {
 .btn {
   border-radius: 6px;
 }
+.btn-group{
+  padding: 40px;
+}
 
 .post-preview > a {
   color: #404040;
