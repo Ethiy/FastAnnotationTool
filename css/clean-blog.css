@@ -219,8 +219,8 @@ hr.small {
   margin: 10px 0 30px;
 }
 
-.intro-header .page-heading .links .btn {
-  border-radius: 25px;
+.btn {
+  border-radius: 10px;
 }
 
 .post-preview > a {
