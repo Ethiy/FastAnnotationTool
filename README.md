@@ -49,6 +49,12 @@ cmake .. [-D options]
 make all
 ```
 
+Example: on OS X if building with the OpenCV installed by homebrew, cmake options might look like:
+
+```bash
+cmake -DCMAKE_PREFIX_PATH=/usr/local/opt/opencv3 ..
+```
+
 On Windows:
 
 ```cmd
@@ -71,6 +77,21 @@ To get help run:
 ```bash
 /path/to/annotate --help
 ```
+
+Controls:
+
+-  **Mouse**: click with mouse to select upper-left and lower-right corners of a rectangle
+-  **Confirm: 'c' key**: confirm selection
+   -  After confirming switch to terminal window and enter a label for the selection; press enter
+   -  After labeling switch back to image window and repeat for each annotation, using mouse to select a new rectangle.
+-  **Delete: 'd' key**: delete previous annotation rectangle
+-  **Next: 'n' ney**: move to next image
+-  **ESC**: next image
+
+const int Confirm = 99; // 'c' key
+const int Next = 110;   // 'n' key
+const int Delete = 100; // delete key
+const int ESC = 27;     // escape key
 
 It is strongly recommended that you run the program without specifying the annotations directory, as it would be inferred automatically.
 Example:
