@@ -9,10 +9,10 @@ const cv::Scalar YELLOW = cv::Scalar(0, 255, 255);
 const std::string annotation_window = "Fast Image Annotation Tool";
 const std::string console_window = "Console";
 
-const int Confirm = 99;
-const int Next = 110;
-const int Delete = 100;
-const int ESC = 27;
+const int Confirm = 99; // 'c' key
+const int Next = 110;   // 'n' key
+const int Delete = 100; // delete key
+const int ESC = 27;     // escape key
 
 cv::Point first_corner(0,0), second_corner(0,0);
 bool getting_roi = false;
