@@ -1,4 +1,4 @@
-# Fast Image Annotation Tool (FIAT)
+# Fast Image Annotation Tool (FIAT) [Deprecated]
 
 ## Abstract
 
